@@ -29,7 +29,7 @@ const LineHeader = ({ linhaSelecionada, dados }) => {
   const horariosExtremos = getHorariosExtremos();
 
   return (
-    <div className="bg-cyan-900/20 border border-cyan-700 rounded-lg p-4 mb-6">
+    <div className="bg-gray-100 dark:bg-gray-700/50 p-5 rounded-lg">
       {/* Informações da Linha */}
       <div className="text-center mb-4">
         <h1 className="text-2xl font-bold text-cyan-300">
@@ -50,12 +50,12 @@ const LineHeader = ({ linhaSelecionada, dados }) => {
               </h3>
               <div className="grid grid-cols-2 gap-2 text-xs">
                 <div className="text-center">
-                  <div className="text-cyan-300 font-medium">Primeiro</div>
-                  <div className="text-white font-mono">{extremo.primeiroHorario}</div>
+                  <div className="text-2xl font-bold text-cyan-700 dark:text-cyan-300">Primeiro</div>
+                  <div className="text-cyan-600 dark:text-cyan-200">{extremo.primeiroHorario}</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-cyan-300 font-medium">Último</div>
-                  <div className="text-white font-mono">{extremo.ultimoHorario}</div>
+                  <div className="text-2xl font-bold text-cyan-700 dark:text-cyan-300">Último</div>
+                  <div className="text-cyan-600 dark:text-cyan-200">{extremo.ultimoHorario}</div>
                 </div>
               </div>
             </div>

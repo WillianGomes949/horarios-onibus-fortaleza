@@ -1,14 +1,14 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
-import { buscarLinhas, buscarHorarios } from '@/services/api';
-import { RiBusFill } from '@remixicon/react';
-import ResultsSection from '@/components/ResultsSection';
-import SearchForm from '@/components/SearchForm';
-
+import React, { useState, useEffect } from "react";
+import { buscarLinhas, buscarHorarios } from "@/services/api";
+import { RiBusFill } from "@remixicon/react";
+import ResultsSection from "@/components/ResultsSection";
+import SearchForm from "@/components/SearchForm";
+import NetworkStatus from "@/components/NetworkStatus";
 
 export default function BusScheduleApp() {
-  const [linha, setLinha] = useState('');
+  const [linha, setLinha] = useState("");
   const [linhas, setLinhas] = useState([]);
   const [dados, setDados] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -17,7 +17,7 @@ export default function BusScheduleApp() {
   const [linhaSelecionada, setLinhaSelecionada] = useState(null);
   const [data, setData] = useState(() => {
     const today = new Date();
-    return today.toISOString().split('T')[0];
+    return today.toISOString().split("T")[0];
   });
 
   // Buscar lista de linhas ao carregar
@@ -28,7 +28,7 @@ export default function BusScheduleApp() {
         const linhasData = await buscarLinhas();
         setLinhas(linhasData);
       } catch (err) {
-        setError('Erro ao carregar lista de linhas');
+        setError("Erro ao carregar lista de linhas");
       } finally {
         setLoadingLinhas(false);
       }
@@ -37,9 +37,13 @@ export default function BusScheduleApp() {
     carregarLinhas();
   }, []);
 
-  const handleBuscarHorarios = async (linhaNumero, dataSelecionada, linhaInfo = null) => {
+  const handleBuscarHorarios = async (
+    linhaNumero,
+    dataSelecionada,
+    linhaInfo = null
+  ) => {
     if (!linhaNumero) {
-      setError('Por favor, selecione uma linha.');
+      setError("Por favor, selecione uma linha.");
       return;
     }
 
@@ -50,19 +54,22 @@ export default function BusScheduleApp() {
     try {
       const horarios = await buscarHorarios(linhaNumero, dataSelecionada);
       setDados(horarios);
-      
+
       if (linhaInfo) {
         setLinhaSelecionada(linhaInfo);
       } else {
         // Encontra a linha selecionada para mostrar o nome
-        const linhaEncontrada = linhas.find(l => l.numero.toString() === linhaNumero);
+        const linhaEncontrada = linhas.find(
+          (l) => l.numero.toString() === linhaNumero
+        );
         setLinhaSelecionada(linhaEncontrada);
       }
 
       if (!horarios || horarios.length === 0) {
-        setError('Nenhum horário encontrado para esta linha na data selecionada.');
+        setError(
+          "Nenhum horário encontrado para esta linha na data selecionada."
+        );
       }
-
     } catch (err) {
       setError(err.message);
     } finally {
@@ -77,16 +84,19 @@ export default function BusScheduleApp() {
 
   return (
     <main className="flex justify-center min-h-screen bg-gray-900 text-white font-sans p-4">
-      <div className="w-full max-w-4xl bg-gray-800 rounded-2xl shadow-2xl p-6 md:p-8 space-y-6">
-        
+      <NetworkStatus />
+      <div className="w-full max-w-4xl  md:max-w-[80%] bg-gray-800 rounded-2xl shadow-2xl p-6 md:p-8 space-y-6 ">
         {/* Cabeçalho */}
-        <div className="text-center">
-          <h1 className="text-3xl font-bold text-cyan-400 flex items-center justify-center">
-            <RiBusFill />
+        <div className="text-center ">
+          <h1 className="flex gap-4 text-3xl font-bold text-cyan-400 items-center justify-center">
+            <RiBusFill size={40} />
             Consulta de Horários
           </h1>
-          <p className="text-gray-400 mt-2">Veja os horários da sua linha de ônibus em tempo real.</p>
+          <p className="text-gray-400 mt-2">
+            Veja os horários da sua linha de ônibus. API oficial da Etufor.
+          </p>
         </div>
+        <div></div>
 
         {/* Formulário de Busca */}
         <SearchForm
@@ -111,10 +121,28 @@ export default function BusScheduleApp() {
       </div>
 
       <style jsx global>{`
-        .custom-scrollbar::-webkit-scrollbar { width: 8px; }
-        .custom-scrollbar::-webkit-scrollbar-track { background: #1f2937; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: #4b5563; border-radius: 4px; }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #6b7280; }
+        .custom-scrollbar::-webkit-scrollbar {
+          width: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+          background: #f1f5f9;
+        }
+        .dark .custom-scrollbar::-webkit-scrollbar-track {
+          background: #1f2937;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+          background: #cbd5e1;
+          border-radius: 4px;
+        }
+        .dark .custom-scrollbar::-webkit-scrollbar-thumb {
+          background: #4b5563;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+          background: #94a3b8;
+        }
+        .dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+          background: #6b7280;
+        }
       `}</style>
     </main>
   );
