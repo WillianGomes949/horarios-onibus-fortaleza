@@ -50,12 +50,12 @@ const LineHeader = ({ linhaSelecionada, dados }) => {
               </h3>
               <div className="grid grid-cols-2 gap-2 text-xs">
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-cyan-700 dark:text-cyan-300">Primeiro</div>
-                  <div className="text-cyan-600 dark:text-cyan-200">{extremo.primeiroHorario}</div>
+                  <div className="text-lg font-bold text-cyan-700 dark:text-cyan-300">Primeiro</div>
+                  <div className="font-bold text-cyan-600 dark:text-cyan-200 text-2xl">{extremo.primeiroHorario}</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-cyan-700 dark:text-cyan-300">Último</div>
-                  <div className="text-cyan-600 dark:text-cyan-200">{extremo.ultimoHorario}</div>
+                  <div className="text-lg font-bold text-cyan-700 dark:text-cyan-300">Último</div>
+                  <div className=" font-bold text-cyan-600 dark:text-cyan-200 text-2xl">{extremo.ultimoHorario}</div>
                 </div>
               </div>
             </div>

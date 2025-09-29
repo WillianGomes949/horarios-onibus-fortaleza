@@ -8,9 +8,9 @@ import {
 
 const HorariosTable = ({ dados }) => {
   return (
-    <div className="space-y-6 flex flex-col md:flex-row items-center gap-4">
+    <div className="space-y-6 flex flex-col md:flex-row items-top gap-4">
       {dados.map((posto, index) => (
-        <div key={index} className="bg-gray-700/50 p-5 rounded-lg w-full md:w-[50%] h-full m-0">
+        <div key={index} className="bg-gray-700/50 p-5 rounded-lg w-full md:w-[50%] h-full m-0 mt-4">
           <h3 className="flex gap-4 items-center text-xl font-bold text-cyan-300 mb-4 ">
             <div>
               <RiMapPin2Fill />
