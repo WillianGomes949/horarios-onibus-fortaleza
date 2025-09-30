@@ -125,9 +125,10 @@ export default function BusScheduleApp() {
           error={error}
           linhaSelecionada={linhaSelecionada}
         />
-        <div className="text-center text-sm text-slate-500 dark:text-slate-400 mt-4">willian gomes © 2025</div>
+        <div className="text-center text-sm text-slate-500 dark:text-slate-400 mt-4">
+          willian gomes © 2025
+        </div>
       </div>
-      
 
       <style jsx global>{`
         .custom-scrollbar::-webkit-scrollbar {
