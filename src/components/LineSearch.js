@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 const LineSearch = ({
   linha,
@@ -8,14 +8,19 @@ const LineSearch = ({
   onLinhaChange,
   onSelecionarLinha,
   onFocus,
-  onBlur
+  onBlur,
 }) => {
   return (
     <div className="relative">
-      <label htmlFor="linha-onibus" className="block text-sm font-medium text-gray-300 mb-2">
+      <label
+        htmlFor="linha-onibus"
+        className="block text-sm font-medium text-slate-600 dark:text-slate-300 mb-2"
+      >
         Número da Linha
         {loadingLinhas && (
-          <span className="text-xs text-gray-400 ml-2">(Carregando...)</span>
+          <span className="text-xs text-slate-500 dark:text-slate-400 ml-2">
+            (Carregando...)
+          </span>
         )}
       </label>
       <input
@@ -26,22 +31,22 @@ const LineSearch = ({
         onFocus={onFocus}
         onBlur={onBlur}
         placeholder="Digite o número ou nome da linha..."
-        className="w-full p-3 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-cyan-500 transition duration-200"
+        className="w-full p-2 bg-white dark:bg-slate-700 text-slate-900 dark:text-white rounded-lg border border-slate-300 dark:border-slate-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200"
       />
-      
+
       {/* Sugestões de Linhas */}
       {mostrarSugestoes && (
-        <div className="absolute z-10 w-full mt-1 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg shadow-lg max-h-60 overflow-y-auto">
+        <div className="absolute z-10 w-full mt-1 bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg shadow-lg max-h-60 overflow-y-auto">
           {linhasFiltradas.map((linhaItem) => (
             <div
               key={linhaItem.numero}
-              className="p-3 hover:bg-gray-100 dark:hover:bg-gray-600 cursor-pointer border-b border-gray-200 dark:border-gray-600 last:border-b-0"
+              className="p-2 hover:bg-slate-100 dark:hover:bg-slate-600 cursor-pointer border-b border-slate-200 dark:border-slate-600 last:border-b-0 transition-colors duration-150"
               onClick={() => onSelecionarLinha(linhaItem)}
             >
-              <div className="font-bold text-cyan-400">
+              <div className="font-bold text-lime-600 dark:text-lime-400">
                 {linhaItem.numero} - {linhaItem.nome}
               </div>
-              <div className="text-sm text-gray-400">
+              <div className="text-sm text-slate-500 dark:text-slate-400">
                 {linhaItem.tipoLinha}
               </div>
             </div>

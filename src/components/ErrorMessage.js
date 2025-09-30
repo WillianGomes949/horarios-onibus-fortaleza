@@ -2,11 +2,11 @@ import React from 'react';
 
 const ErrorMessage = ({ message }) => {
   return (
-    <div className="bg-red-900/50 border border-red-700 text-red-300 p-4 rounded-lg text-center">
-      <p className="font-semibold">Ocorreu um erro</p>
-      <p>{message}</p>
-    </div>
-  );
+  <div className="bg-slate-800 border border-red-400/30 text-slate-200 p-2 rounded-lg text-center">
+    <p className="font-semibold text-red-400">Ocorreu um erro</p>
+    <p className="text-slate-300">{message}</p>
+  </div>
+);
 };
 
 export default ErrorMessage;

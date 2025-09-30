@@ -83,16 +83,16 @@ export default function BusScheduleApp() {
   };
 
   return (
-    <main className="flex justify-center min-h-screen bg-gray-900 text-white font-sans p-4">
+    <main className="flex justify-center min-h-screen bg-slate-50 dark:bg-slate-900 text-slate-700 dark:text-slate-300 font-sans p-2">
       <NetworkStatus />
-      <div className="w-full max-w-4xl  md:max-w-[80%] bg-gray-800 rounded-2xl shadow-2xl p-6 md:p-8 space-y-6 h-auto">
+      <div className="w-full max-w-4xl md:max-w-[80%] bg-white dark:bg-slate-800 rounded-2xl shadow-2xl p-2 md:p-8 space-y-6 h-auto">
         {/* Cabeçalho */}
-        <div className="text-center ">
-          <h1 className="flex gap-4 text-3xl font-bold text-cyan-400 items-center justify-center">
+        <div className="text-center">
+          <h1 className="flex gap-2 text-3xl font-bold text-lime-600 dark:text-lime-400 items-center justify-center">
             <RiBusFill size={40} />
             Consulta de Horários
           </h1>
-          <p className="text-gray-400 mt-2">
+          <p className="text-slate-500 dark:text-slate-400 mt-2">
             Veja os horários da sua linha de ônibus. API oficial da Etufor.
           </p>
         </div>
@@ -125,23 +125,23 @@ export default function BusScheduleApp() {
           width: 8px;
         }
         .custom-scrollbar::-webkit-scrollbar-track {
-          background: #f1f5f9;
+          background: transparent; /* slate-50 */
         }
         .dark .custom-scrollbar::-webkit-scrollbar-track {
-          background: #1f2937;
+          background: none; /* slate-800 */
         }
         .custom-scrollbar::-webkit-scrollbar-thumb {
-          background: #cbd5e1;
+          background: #cbd5e1; /* slate-300 */
           border-radius: 4px;
         }
         .dark .custom-scrollbar::-webkit-scrollbar-thumb {
-          background: #4b5563;
+          background: #475569; /* slate-600 */
         }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-          background: #94a3b8;
+          background: #94a3b8; /* slate-400 */
         }
         .dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-          background: #6b7280;
+          background: #64748b; /* slate-500 */
         }
       `}</style>
     </main>
