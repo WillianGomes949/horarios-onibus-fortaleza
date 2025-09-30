@@ -86,7 +86,7 @@ export default function BusScheduleApp() {
   return (
     <main className="flex justify-center items-center min-h-screen bg-slate-50 dark:bg-slate-900 text-slate-700 dark:text-slate-300 font-sans p-2">
       <NetworkStatus />
-      <div className="w-full max-w-4xl md:max-w-[80%] bg-white dark:bg-slate-800 rounded-2xl shadow-2xl p-2 md:p-8 space-y-6">
+      <div className="w-full max-w-4xl lg:max-w-[80%] bg-white dark:bg-slate-800 rounded-2xl shadow-2xl p-2 md:p-8 space-y-6">
         {/* Cabeçalho */}
         <div className="text-center">
           <h1 className="text-xl flex gap-2 md:text-3xl font-bold text-lime-600 dark:text-lime-400 items-center justify-center">

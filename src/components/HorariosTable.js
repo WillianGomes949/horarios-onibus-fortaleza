@@ -62,13 +62,13 @@ const HorariosTable = ({ dados }) => {
     <div className="space-y-6 mt-4">
       {/* Próximos Horários */}
       {proximosHorarios.length > 0 && (
-        <div className="bg-lime-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600 rounded-lg p-2">
+        <div className=" bg-lime-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600 rounded-lg p-2">
           <h3 className="text-lg font-bold text-lime-700 dark:text-lime-400 mb-3 flex items-center gap-2">
             <RiTimeFill size={20} />
             Próximos Horários
           </h3>
 
-          <div className="space-y-4">
+          <div className="flex flex-col md:flex-row items-baseline gap-4">
             {dados.map((posto, postoIndex) => {
               // Filtrar próximos horários apenas para este posto
               const proximosDestePosto = proximosHorarios
@@ -80,7 +80,7 @@ const HorariosTable = ({ dados }) => {
               return (
                 <div
                   key={postoIndex}
-                  className="bg-lime-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600 rounded-lg p-2"
+                  className=" w-full bg-lime-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600 rounded-lg p-2"
                 >
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                     {proximosDestePosto.map((horario, index) => {
@@ -91,13 +91,13 @@ const HorariosTable = ({ dados }) => {
                       return (
                         <div
                           key={index}
-                          className={`bg-white dark:bg-slate-600 rounded-lg p-2 border ${
+                          className={`md:h-50 lg:h-30 bg-white dark:bg-slate-600 rounded-lg p-2 border ${
                             isProximoGeral
                               ? "border-slate-400 dark:border-lime-500 shadow-lg"
                               : "border-slate-100 dark:border-slate-500"
                           }`}
                         >
-                          <div className="font-bold text-lime-600 dark:text-lime-400 text-sm">
+                          <div className="font-bold text-lime-600 dark:text-lime-400 lg:text-sm text-xs">
                             {horario.posto}
                           </div>
                           <div className="text-2xl font-bold text-slate-800 dark:text-slate-200 mt-1">
@@ -117,8 +117,11 @@ const HorariosTable = ({ dados }) => {
                             </div>
                           )}
                           {!isProximoGeral && index === 0 && (
-                            <div className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-                              Próximo deste posto
+                            <div className="flex items-center gap-2  text-xs text-slate-500 dark:text-slate-400 mt-1">
+                              <span>
+                                <RiPushpinFill size={12} />
+                              </span>
+                              <p>Próximo deste posto</p>
                             </div>
                           )}
                         </div>
