@@ -12,6 +12,7 @@ import {
   RiBus2Fill,
 } from "@remixicon/react";
 
+
 const HorariosTable = ({ dados }) => {
   const [tabelasVisiveis, setTabelasVisiveis] = useState({});
   const [proximosHorarios, setProximosHorarios] = useState([]);
@@ -70,6 +71,8 @@ const HorariosTable = ({ dados }) => {
             <RiTimeFill size={20} />
             Próximos Horários
           </h3>
+          
+
           <div className="space-y-4">
             {dados.map((posto, postoIndex) => {
               // Filtrar próximos horários apenas para este posto
@@ -106,8 +109,10 @@ const HorariosTable = ({ dados }) => {
                             {horario.horario}
                           </div>
                           <div className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-                            Tabela: {horario.tabela} • {horario.acessivel}
+                            Tabela: {horario.tabela} • Adaptado:{" "}
+                            {horario.acessivel}
                           </div>
+
                           {isProximoGeral && (
                             <div className="flex items-center gap-2 text-xs text-orange-500 dark:text-orange-300 mt-1">
                               <span>

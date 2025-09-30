@@ -35,7 +35,7 @@ const LineHeader = ({ linhaSelecionada, dados }) => {
         <h1 className=" text-sm md:text-xl font-bold text-lime-600 dark:text-lime-400">
           Linha {linhaSelecionada.numero} - {linhaSelecionada.nome}
         </h1>
-        <p className="text-lime-500 dark:text-lime-300 mt-1">
+        <p className="text-xs md:text-sm lime-500 dark:text-lime-300 mt-1">
           {linhaSelecionada.tipoLinha}
         </p>
       </div>
@@ -53,7 +53,7 @@ const LineHeader = ({ linhaSelecionada, dados }) => {
               </h3>
               <div className="grid grid-cols-2 gap-2 text-xs">
                 <div className="text-center">
-                  <div className="md:text-lg text-sm font-bold text-lime-600 dark:text-lime-400">
+                  <div className=" text-xs md:text-sm font-bold text-lime-600 dark:text-lime-400">
                     Primeiro
                   </div>
                   <div className="font-bold text-lime-700 dark:text-slate-300 text-2xl">
@@ -61,7 +61,7 @@ const LineHeader = ({ linhaSelecionada, dados }) => {
                   </div>
                 </div>
                 <div className="text-center">
-                  <div className="md:text-lg text-sm font-bold text-lime-600 dark:text-lime-400">
+                  <div className="text-xs md:text-sm font-bold text-lime-600 dark:text-lime-400">
                     Último
                   </div>
                   <div className="font-bold text-lime-700 dark:text-slate-300 text-2xl">

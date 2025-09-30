@@ -6,6 +6,7 @@ import { RiBusFill } from "@remixicon/react";
 import ResultsSection from "@/components/ResultsSection";
 import SearchForm from "@/components/SearchForm";
 import NetworkStatus from "@/components/NetworkStatus";
+import DownloadPDF from "@/components/DownloadPDF";
 
 export default function BusScheduleApp() {
   const [linha, setLinha] = useState("");
@@ -83,16 +84,16 @@ export default function BusScheduleApp() {
   };
 
   return (
-    <main className="flex justify-center min-h-screen bg-slate-50 dark:bg-slate-900 text-slate-700 dark:text-slate-300 font-sans p-2">
+    <main className="flex justify-center items-center min-h-screen bg-slate-50 dark:bg-slate-900 text-slate-700 dark:text-slate-300 font-sans p-2">
       <NetworkStatus />
-      <div className="w-full max-w-4xl md:max-w-[80%] bg-white dark:bg-slate-800 rounded-2xl shadow-2xl p-2 md:p-8 space-y-6 h-auto">
+      <div className="w-full max-w-4xl md:max-w-[80%] bg-white dark:bg-slate-800 rounded-2xl shadow-2xl p-2 md:p-8 space-y-6">
         {/* Cabeçalho */}
         <div className="text-center">
-          <h1 className="flex gap-2 text-3xl font-bold text-lime-600 dark:text-lime-400 items-center justify-center">
+          <h1 className="text-xl flex gap-2 md:text-3xl font-bold text-lime-600 dark:text-lime-400 items-center justify-center">
             <RiBusFill size={40} />
             Consulta de Horários
           </h1>
-          <p className="text-slate-500 dark:text-slate-400 mt-2">
+          <p className="text-sm text-slate-500 dark:text-slate-400 mt-2">
             Veja os horários da sua linha de ônibus. API oficial da Etufor.
           </p>
         </div>
@@ -110,7 +111,14 @@ export default function BusScheduleApp() {
           onBuscarHorarios={handleBuscarHorarios}
           onSelecionarLinha={handleSelecionarLinha}
         />
-
+        <div className="flex justify-between items-center">
+            
+            <DownloadPDF
+              dados={dados}
+              linhaSelecionada={linhaSelecionada}
+              data={data}
+            />
+          </div>
         {/* Seção de Resultados */}
         <ResultsSection
           dados={dados}
