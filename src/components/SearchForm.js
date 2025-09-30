@@ -68,7 +68,7 @@ const SearchForm = ({
       <button
         type="submit"
         disabled={loading || !linha}
-        className="w-full px-6 py-3 bg-lime-600 hover:bg-lime-700 text-white font-bold rounded-lg 
+        className="w-full  px-3 py-3 bg-lime-600 hover:bg-lime-700 text-white font-bold rounded-lg 
              disabled:bg-slate-400 disabled:text-slate-200 dark:disabled:bg-slate-600 
              disabled:cursor-not-allowed transition-all duration-200 
              focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"

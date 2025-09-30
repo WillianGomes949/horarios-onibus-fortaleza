@@ -1,6 +1,12 @@
 import React from "react";
 
 const LineHeader = ({ linhaSelecionada, dados }) => {
+  // Função para converter hora string ("HH:MM") em minutos
+  const horaParaMinutos = (hora) => {
+    const [h, m] = hora.split(":").map(Number);
+    return h * 60 + m;
+  };
+
   // Função para extrair primeiro e último horário de cada posto
   const getHorariosExtremos = () => {
     if (!dados || !Array.isArray(dados)) return [];
@@ -14,9 +20,26 @@ const LineHeader = ({ linhaSelecionada, dados }) => {
         };
       }
 
-      const horariosOrdenados = [...posto.horarios].sort((a, b) =>
-        a.horario.localeCompare(b.horario)
-      );
+      let horariosOrdenados;
+
+      if (linhaSelecionada.tipoLinha === "Corujão") {
+        // Ordena entre 00:00 e 04:00
+        horariosOrdenados = [...posto.horarios].sort(
+          (a, b) => horaParaMinutos(a.horario) - horaParaMinutos(b.horario)
+        );
+      } else {
+        // Linha normal: 04:00 até 01:00
+        horariosOrdenados = [...posto.horarios].sort((a, b) => {
+          const minA = horaParaMinutos(a.horario);
+          const minB = horaParaMinutos(b.horario);
+
+          // Ajusta horas depois da meia-noite (até 01:00) para "ficarem no fim"
+          const ajustadoA = minA < 240 ? minA + 24 * 60 : minA;
+          const ajustadoB = minB < 240 ? minB + 24 * 60 : minB;
+
+          return ajustadoA - ajustadoB;
+        });
+      }
 
       return {
         posto: posto.postoControle,

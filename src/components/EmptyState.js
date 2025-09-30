@@ -1,10 +1,10 @@
 import React from "react";
-import { RiSpam2Line, RiPenNibLine } from "@remixicon/react";
+import { RiSpam2Line, RiSearch2Line } from "@remixicon/react";
 
 const EmptyState = ({ type = "initial" }) => {
   const messages = {
     initial: {
-      icon: RiPenNibLine,
+      icon: RiSearch2Line,
       title: "Busque os horários acima",
       description: "Selecione uma linha e uma data para consultar os horários",
     },

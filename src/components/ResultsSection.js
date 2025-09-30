@@ -7,7 +7,7 @@ import EmptyState from './EmptyState';
 
 const ResultsSection = ({ dados, loading, error, linhaSelecionada }) => {
   return (
-    <div className="mt-6 min-h-[300px]">
+    <div className="mt-6">
       {/* Cabeçalho com informações da linha E horários extremos */}
       {linhaSelecionada && dados && (
         <LineHeader 

@@ -1,17 +1,13 @@
 import React, { useState, useEffect } from "react";
 import {
-  RiMapPin2Fill,
   RiShakeHandsFill,
   RiTableView,
   RiTimeFill,
   RiEyeLine,
   RiEyeOffLine,
-  RiPageSeparator,
-  RiTrafficLightFill,
   RiPushpinFill,
   RiBus2Fill,
 } from "@remixicon/react";
-
 
 const HorariosTable = ({ dados }) => {
   const [tabelasVisiveis, setTabelasVisiveis] = useState({});
@@ -71,7 +67,6 @@ const HorariosTable = ({ dados }) => {
             <RiTimeFill size={20} />
             Próximos Horários
           </h3>
-          
 
           <div className="space-y-4">
             {dados.map((posto, postoIndex) => {
