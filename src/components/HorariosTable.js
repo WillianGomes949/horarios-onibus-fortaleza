@@ -8,6 +8,7 @@ import {
   RiPushpinFill,
   RiBus2Fill,
 } from "@remixicon/react";
+import LineHeader from './LineHeader';
 
 const HorariosTable = ({ dados }) => {
   const [tabelasVisiveis, setTabelasVisiveis] = useState({});
@@ -68,7 +69,7 @@ const HorariosTable = ({ dados }) => {
             Próximos Horários
           </h3>
 
-          <div className="flex flex-col md:flex-row items-baseline gap-4">
+          <div className="flex flex-col md:flex-row items-baseline gap-2">
             {dados.map((posto, postoIndex) => {
               // Filtrar próximos horários apenas para este posto
               const proximosDestePosto = proximosHorarios
@@ -91,7 +92,7 @@ const HorariosTable = ({ dados }) => {
                       return (
                         <div
                           key={index}
-                          className={`md:h-50 lg:h-30 bg-white dark:bg-slate-600 rounded-lg p-2 border ${
+                          className={`md:h-35 bg-white dark:bg-slate-600 rounded-lg p-2 border ${
                             isProximoGeral
                               ? "border-slate-400 dark:border-lime-500 shadow-lg"
                               : "border-slate-100 dark:border-slate-500"

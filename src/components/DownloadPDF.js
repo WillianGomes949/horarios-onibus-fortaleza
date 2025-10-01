@@ -63,7 +63,7 @@ const DownloadPDF = ({ dados, linhaSelecionada, data }) => {
           textColor: [51, 65, 85],
         },
         styles: {
-          fontSize: 9,
+          fontSize: 12,
           cellPadding: 3,
         },
         margin: { left: 14, right: 14 },
