@@ -91,7 +91,7 @@ export default function BusScheduleApp() {
         <div className="text-center">
           <h1 className="text-xl flex gap-2 md:text-3xl font-bold text-lime-600 dark:text-lime-400 items-center justify-center">
             <RiBusFill size={40} />
-            Consulta de Horários
+            Horários de Ônibus Fortaleza
           </h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-2">
             Veja os horários da sua linha de ônibus. API oficial da Etufor.

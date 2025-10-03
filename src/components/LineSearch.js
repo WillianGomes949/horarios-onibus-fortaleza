@@ -1,3 +1,4 @@
+import { RiGitCommitFill, RiLoader5Fill } from "@remixicon/react";
 import React from "react";
 
 const LineSearch = ({
@@ -14,13 +15,29 @@ const LineSearch = ({
     <div className="relative">
       <label
         htmlFor="linha-onibus"
-        className="block text-sm font-medium text-slate-600 dark:text-slate-300 mb-2"
+        className=" text-sm font-medium text-slate-600 dark:text-slate-300 mb-2 flex"
       >
-        Número da Linha
-        {loadingLinhas && (
-          <span className="text-xs text-slate-500 dark:text-slate-400 ml-2">
-            (Carregando...)
-          </span>
+     
+        {loadingLinhas ? (
+          <div className="flex justify-start items-center gap-2">
+            <span className="text-xs text-slate-500 dark:text-slate-400 ml-2">
+              <RiLoader5Fill
+                size={30}
+                className="animate-spin text-orange-500 dark:text-orange-400"
+              />
+            </span>
+            <p>Carregando</p>
+          </div>
+        ) : (
+          <div className="flex justify-start items-center gap-2">
+            <span className="text-xs text-slate-500 dark:text-slate-400 ml-2">
+              <RiGitCommitFill
+                size={30}
+                className=" text-lime-500 dark:text-lime-400"
+              />
+            </span>
+            <p>Linha</p>
+          </div>
         )}
       </label>
       <input

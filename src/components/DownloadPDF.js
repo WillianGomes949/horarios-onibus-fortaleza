@@ -1,5 +1,5 @@
 import React from "react";
-import { RiDownloadLine } from "@remixicon/react";
+import { RiArrowDownLine } from "@remixicon/react";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 
@@ -87,7 +87,7 @@ const DownloadPDF = ({ dados, linhaSelecionada, data }) => {
       onClick={gerarPDF}
       className="flex items-center gap-2 px-4 py-2 bg-orange-600 hover:bg-orange-700 text-white font-semibold rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
     >
-      <RiDownloadLine size={18} />
+      <RiArrowDownLine size={18} />
       Baixar PDF
     </button>
   );

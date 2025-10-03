@@ -1,3 +1,4 @@
+import { RiGitCommitFill } from "@remixicon/react";
 import React from "react";
 
 const DatePicker = ({ data, onDataChange }) => {
@@ -5,9 +6,15 @@ const DatePicker = ({ data, onDataChange }) => {
     <div>
       <label
         htmlFor="data-consulta"
-        className="block text-sm font-medium text-slate-600 dark:text-slate-300 mb-2"
+        className="flex justify-start items-center gap-2 text-sm font-medium text-slate-600 dark:text-slate-300 mb-2"
       >
-        Data da Consulta
+        <span className="text-xs text-slate-500 dark:text-slate-400 ml-2">
+          <RiGitCommitFill
+            size={30}
+            className=" text-lime-500 dark:text-lime-400"
+          />
+        </span>
+        <p>Data</p>
       </label>
       <input
         id="data-consulta"
