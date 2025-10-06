@@ -8,7 +8,6 @@ import {
   RiPushpinFill,
   RiBus2Fill,
 } from "@remixicon/react";
-import LineHeader from './LineHeader';
 
 const HorariosTable = ({ dados }) => {
   const [tabelasVisiveis, setTabelasVisiveis] = useState({});
@@ -83,7 +82,11 @@ const HorariosTable = ({ dados }) => {
                   key={postoIndex}
                   className=" w-full bg-lime-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600 rounded-lg p-2"
                 >
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                  <div
+                    className={`grid gap-2 ${
+                      postoIndex > 2 || postoIndex < 4 ? "md:grid-cols-1" : "md:grid-cols-2"
+                    }`}
+                  >
                     {proximosDestePosto.map((horario, index) => {
                       const isProximoGeral =
                         proximosHorarios[0]?.posto === horario.posto &&
@@ -92,39 +95,45 @@ const HorariosTable = ({ dados }) => {
                       return (
                         <div
                           key={index}
-                          className={`md:h-35 bg-white dark:bg-slate-600 rounded-lg p-2 border ${
+                          className={`flex flex-col justify-between md:h-40 bg-white dark:bg-slate-600 rounded-lg p-2 border ${
                             isProximoGeral
                               ? "border-slate-400 dark:border-lime-500 shadow-lg"
                               : "border-slate-100 dark:border-slate-500"
                           }`}
                         >
-                          <div className="font-bold text-lime-600 dark:text-lime-400 lg:text-sm text-xs">
-                            {horario.posto}
-                          </div>
-                          <div className="text-2xl font-bold text-slate-800 dark:text-slate-200 mt-1">
-                            {horario.horario}
-                          </div>
-                          <div className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-                            Tabela: {horario.tabela} • Adaptado:{" "}
-                            {horario.acessivel}
+                          <div>
+                            <div className="font-bold text-lime-600 dark:text-lime-400 lg:text-sm text-xs">
+                              {horario.posto}
+                            </div>
+                            <div className="text-2xl font-bold text-slate-800 dark:text-slate-200 mt-1">
+                              {horario.horario}
+                            </div>
+                            <div className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                              Tabela: {horario.tabela} • Adaptado:{" "}
+                              {horario.acessivel}
+                            </div>
                           </div>
 
-                          {isProximoGeral && (
-                            <div className="flex items-center gap-2 text-xs text-orange-500 dark:text-orange-300 mt-1">
-                              <span>
-                                <RiPushpinFill size={12} />
-                              </span>{" "}
-                              <p>Saída Prevista</p>
+                          <div>
+                            <div className="">
+                              {isProximoGeral && (
+                                <div className="flex items-center gap-2 text-xs text-orange-500 dark:text-orange-400 mt-1">
+                                  <span>
+                                    <RiPushpinFill size={12} />
+                                  </span>
+                                  <p>Saída Prevista</p>
+                                </div>
+                              )}
+                              {!isProximoGeral && index === 0 && (
+                                <div className="flex items-center gap-2  text-xs text-orange-500 dark:text-orange-400 mt-1">
+                                  <span>
+                                    <RiPushpinFill size={12} />
+                                  </span>
+                                  <p>Próximo deste posto</p>
+                                </div>
+                              )}
                             </div>
-                          )}
-                          {!isProximoGeral && index === 0 && (
-                            <div className="flex items-center gap-2  text-xs text-slate-500 dark:text-slate-400 mt-1">
-                              <span>
-                                <RiPushpinFill size={12} />
-                              </span>
-                              <p>Próximo deste posto</p>
-                            </div>
-                          )}
+                          </div>
                         </div>
                       );
                     })}
