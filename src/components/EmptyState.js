@@ -1,10 +1,10 @@
 import React from "react";
-import { RiSpam2Line, RiLoader5Fill } from "@remixicon/react";
+import { RiSpam2Line, RiMenuSearchLine } from "@remixicon/react";
 
 const EmptyState = ({ type = "initial" }) => {
   const messages = {
     initial: {
-      icon: RiLoader5Fill,
+      icon: RiMenuSearchLine,
       title: "Busque os horários acima",
       description: "Selecione uma linha e uma data para consultar os horários",
     },
@@ -21,7 +21,7 @@ const EmptyState = ({ type = "initial" }) => {
   return (
     <div className=" bg-slate-100 dark:bg-slate-700/50 border border-slate-300 dark:border-slate-600 text-slate-600 dark:text-slate-300 p-8 rounded-lg text-center">
       <div className="flex justify-center mb-4">
-        <Icon className="animate-[spin_3s_ease-in-out_infinite] w-12 h-12 text-slate-400 dark:text-slate-500" />
+        <Icon className="w-12 h-12 text-slate-400 dark:text-slate-500" />
       </div>
       {title && <p className="text-lg font-medium mb-2">{title}</p>}
       <p className="text-sm">{description}</p>
