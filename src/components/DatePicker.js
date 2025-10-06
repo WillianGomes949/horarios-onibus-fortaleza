@@ -8,12 +8,7 @@ const DatePicker = ({ data, onDataChange }) => {
         htmlFor="data-consulta"
         className="flex justify-start items-center gap-2 text-sm font-medium text-slate-600 dark:text-slate-300 mb-2"
       >
-        <span className="text-xs text-slate-500 dark:text-slate-400 ml-2">
-          <RiGitCommitFill
-            size={30}
-            className=" text-lime-500 dark:text-lime-400"
-          />
-        </span>
+        
         <p>Data</p>
       </label>
       <input

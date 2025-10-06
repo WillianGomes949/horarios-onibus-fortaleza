@@ -76,19 +76,19 @@ const LineHeader = ({ linhaSelecionada, dados }) => {
               </h3>
               <div className="grid grid-cols-2 gap-2 text-xs">
                 <div className="text-center">
-                  <div className=" text-xs md:text-sm font-bold text-lime-600 dark:text-lime-400">
-                    Primeiro
-                  </div>
-                  <div className="font-bold text-lime-700 dark:text-slate-300 text-2xl">
+                  <div className="font-bold text-slate-700 dark:text-slate-300 text-2xl">
                     {extremo.primeiroHorario}
+                  </div>
+                  <div className=" text-xs md:text-sm font-bold text-slate-700 dark:text-slate-400">
+                    Primeiro Horário
                   </div>
                 </div>
                 <div className="text-center">
-                  <div className="text-xs md:text-sm font-bold text-lime-600 dark:text-lime-400">
-                    Último
-                  </div>
-                  <div className="font-bold text-lime-700 dark:text-slate-300 text-2xl">
+                  <div className="font-bold text-slate-700 dark:text-slate-300 text-2xl">
                     {extremo.ultimoHorario}
+                  </div>
+                  <div className="text-xs md:text-sm font-bold text-slate-700 dark:text-slate-400">
+                    Último Horário
                   </div>
                 </div>
               </div>

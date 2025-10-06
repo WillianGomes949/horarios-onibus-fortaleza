@@ -5,8 +5,9 @@ import {
   RiTimeFill,
   RiEyeLine,
   RiEyeOffLine,
-  RiPushpinFill,
   RiBus2Fill,
+  RiTimerFlashLine,
+  RiTimeLine,
 } from "@remixicon/react";
 
 const HorariosTable = ({ dados }) => {
@@ -64,7 +65,7 @@ const HorariosTable = ({ dados }) => {
       {proximosHorarios.length > 0 && (
         <div className=" bg-lime-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600 rounded-lg p-2">
           <h3 className="text-lg font-bold text-lime-700 dark:text-lime-400 mb-3 flex items-center gap-2">
-            <RiTimeFill size={20} />
+            <RiTimeLine size={20} />
             Próximos Horários
           </h3>
 
@@ -84,7 +85,9 @@ const HorariosTable = ({ dados }) => {
                 >
                   <div
                     className={`grid gap-2 ${
-                      postoIndex > 2 || postoIndex < 4 ? "md:grid-cols-1" : "md:grid-cols-2"
+                      postoIndex > 2 || postoIndex < 4
+                        ? "md:grid-cols-1"
+                        : "md:grid-cols-2"
                     }`}
                   >
                     {proximosDestePosto.map((horario, index) => {
@@ -102,10 +105,10 @@ const HorariosTable = ({ dados }) => {
                           }`}
                         >
                           <div>
-                            <div className="font-bold text-lime-600 dark:text-lime-400 lg:text-sm text-xs">
+                            <div className="font-normal text-lime-600 dark:text-lime-400 lg:text-sm text-xs">
                               {horario.posto}
                             </div>
-                            <div className="text-2xl font-bold text-slate-800 dark:text-slate-200 mt-1">
+                            <div className="text-2xl font-bold text-slate-700 dark:text-slate-200 mt-1">
                               {horario.horario}
                             </div>
                             <div className="text-xs text-slate-500 dark:text-slate-400 mt-1">
@@ -119,17 +122,17 @@ const HorariosTable = ({ dados }) => {
                               {isProximoGeral && (
                                 <div className="flex items-center gap-2 text-xs text-orange-500 dark:text-orange-400 mt-1">
                                   <span>
-                                    <RiPushpinFill size={12} />
+                                    <RiTimerFlashLine size={20} />
                                   </span>
-                                  <p>Saída Prevista</p>
+                                  <p>Próximo Horário Programado</p>
                                 </div>
                               )}
                               {!isProximoGeral && index === 0 && (
                                 <div className="flex items-center gap-2  text-xs text-orange-500 dark:text-orange-400 mt-1">
                                   <span>
-                                    <RiPushpinFill size={12} />
+                                    <RiTimerFlashLine size={20} />
                                   </span>
-                                  <p>Próximo deste posto</p>
+                                  <p>Próximo Horário Programado</p>
                                 </div>
                               )}
                             </div>
@@ -192,7 +195,7 @@ const HorariosTable = ({ dados }) => {
                     <thead className="bg-lime-50 dark:bg-slate200 dark:bg-slate-800 sticky top-0">
                       <tr>
                         <th className="p-2 text-lime-700 dark:text-slate-300">
-                          <RiTimeFill size={16} /> Horário
+                          <RiTimeLine size={16} /> Horário
                         </th>
 
                         <th className="p-2 text-lime-700 dark:text-slate-300">

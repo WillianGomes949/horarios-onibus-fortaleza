@@ -13,43 +13,48 @@ const LineSearch = ({
 }) => {
   return (
     <div className="relative">
-      <label
-        htmlFor="linha-onibus"
-        className=" text-sm font-medium text-slate-600 dark:text-slate-300 mb-2 flex"
-      >
-     
-        {loadingLinhas ? (
-          <div className="flex justify-start items-center gap-2">
-            <span className="text-xs text-slate-500 dark:text-slate-400 ml-2">
+      {loadingLinhas ? (
+        <div className="flex flex-col">
+          <label
+            htmlFor="linha-onibus"
+            className=" text-sm font-medium text-slate-600 dark:text-slate-300 mb-2 flex"
+          >
+            <div className="flex justify-start items-center gap-2">
+              <p>Linha</p>
+            </div>
+          </label>
+          <div className="flex justify-center items-center gap-4 py-2 px-4 bg-white dark:bg-slate-700 text-slate-900 dark:text-white rounded-lg border border-orange-300 dark:border-orange-600">
+            <span className=" text-slate-500 dark:text-slate-400 ml-2">
               <RiLoader5Fill
-                size={30}
+                size={20}
                 className="animate-spin text-orange-500 dark:text-orange-400"
               />
             </span>
-            <p>Carregando</p>
+            <p>Carregando linhas, aguarde...</p>
           </div>
-        ) : (
-          <div className="flex justify-start items-center gap-2">
-            <span className="text-xs text-slate-500 dark:text-slate-400 ml-2">
-              <RiGitCommitFill
-                size={30}
-                className=" text-lime-500 dark:text-lime-400"
-              />
-            </span>
-            <p>Linha</p>
-          </div>
-        )}
-      </label>
-      <input
-        id="linha-onibus"
-        type="text"
-        value={linha}
-        onChange={(e) => onLinhaChange(e.target.value)}
-        onFocus={onFocus}
-        onBlur={onBlur}
-        placeholder="Digite o número ou nome da linha..."
-        className="w-full p-2 bg-white dark:bg-slate-700 text-slate-900 dark:text-white rounded-lg border border-slate-300 dark:border-slate-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200"
-      />
+        </div>
+      ) : (
+        <>
+          <label
+            htmlFor="linha-onibus"
+            className=" text-sm font-medium text-slate-600 dark:text-slate-300 mb-2 flex"
+          >
+            <div className="flex justify-start items-center gap-2">
+              <p>Linha</p>
+            </div>
+          </label>
+          <input
+            id="linha-onibus"
+            type="text"
+            value={linha}
+            onChange={(e) => onLinhaChange(e.target.value)}
+            onFocus={onFocus}
+            onBlur={onBlur}
+            placeholder="Digite o número ou nome da linha..."
+            className="w-full p-2 bg-white dark:bg-slate-700 text-slate-900 dark:text-white rounded-lg border border-slate-300 dark:border-slate-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200"
+          />
+        </>
+      )}
 
       {/* Sugestões de Linhas */}
       {mostrarSugestoes && (
