@@ -94,7 +94,7 @@ export default function BusScheduleApp() {
             Horários de Ônibus Fortaleza
           </h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-2">
-            Veja os horários da sua linha de ônibus. API oficial da Etufor.
+            Veja os horários atualizados das linhas de ônibus de <strong className="text-orange-500 dark:text-orange-400 font-extrabold">Fortaleza</strong>.
           </p>
         </div>
         <div></div>
@@ -126,7 +126,7 @@ export default function BusScheduleApp() {
           linhaSelecionada={linhaSelecionada}
         />
         <div className="text-center text-sm text-slate-500 dark:text-slate-400 mt-4">
-          willian gomes © 2025
+          Willian Gomes © 2025
         </div>
       </div>
 
