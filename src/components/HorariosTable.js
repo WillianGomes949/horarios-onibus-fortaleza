@@ -10,7 +10,7 @@ import {
   RiTimeLine,
 } from "@remixicon/react";
 
-const HorariosTable = ({ dados }) => {
+const HorariosTable = ({dados, linhaSelecionada}) => {
   const [tabelasVisiveis, setTabelasVisiveis] = useState({});
   const [proximosHorarios, setProximosHorarios] = useState([]);
 
@@ -44,7 +44,7 @@ const HorariosTable = ({ dados }) => {
         (h) => h.timestamp >= new Date(`2000-01-01T${horaAtual}`).getTime()
       )
       .sort((a, b) => a.timestamp - b.timestamp)
-      .slice(0, 4); // Pegar os 4 próximos horários
+      .slice(0, 2); // Pegar os 4 próximos horários
 
     setProximosHorarios(horariosFuturos);
   }, [dados]);
@@ -61,6 +61,14 @@ const HorariosTable = ({ dados }) => {
 
   return (
     <div className="space-y-6 mt-4">
+      <div className="text-center mb-4">
+        <h1 className=" text-sm md:text-xl font-bold text-lime-600 dark:text-lime-400">
+          Linha {linhaSelecionada.numero} - {linhaSelecionada.nome}
+        </h1>
+        <p className="text-xs md:text-sm lime-500 dark:text-lime-300 mt-1">
+          {linhaSelecionada.tipoLinha}
+        </p>
+      </div>
       {/* Próximos Horários */}
       {proximosHorarios.length > 0 && (
         <div className=" bg-lime-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600 rounded-lg p-2">

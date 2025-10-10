@@ -1,3 +1,4 @@
+import { Ri24HoursLine } from "@remixicon/react";
 import React from "react";
 
 const LineHeader = ({ linhaSelecionada, dados }) => {
@@ -52,15 +53,13 @@ const LineHeader = ({ linhaSelecionada, dados }) => {
   const horariosExtremos = getHorariosExtremos();
 
   return (
-    <div className="border border-slate-200 dark:border-slate-600 rounded-lg p-2">
+    <div className="border border-slate-200 dark:border-slate-600 rounded-lg p-2 dark:bg-slate-700/50 mt-6">
       {/* Informações da Linha */}
-      <div className="text-center mb-4">
-        <h1 className=" text-sm md:text-xl font-bold text-lime-600 dark:text-lime-400">
-          Linha {linhaSelecionada.numero} - {linhaSelecionada.nome}
+      <div className=" mb-4">
+        <h1 className="flex gap-2 text-sm md:text-xl font-bold text-lime-600 dark:text-lime-400">
+          <Ri24HoursLine />
+          Horario de funcionamento da linha
         </h1>
-        <p className="text-xs md:text-sm lime-500 dark:text-lime-300 mt-1">
-          {linhaSelecionada.tipoLinha}
-        </p>
       </div>
 
       {/* Primeiro e Último Horário por Posto */}

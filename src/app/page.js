@@ -93,8 +93,8 @@ export default function BusScheduleApp() {
             <RiBusFill size={40} />
             Horários de Ônibus Fortaleza
           </h1>
-          <p className="text-sm text-slate-500 dark:text-slate-400 mt-2">
-            Veja os horários atualizados das linhas de ônibus de <strong className="text-orange-500 dark:text-orange-400 font-extrabold">Fortaleza</strong>.
+          <p className=" text-slate-500 dark:text-slate-400 mt-2">
+            Veja os horários atualizados das linhas de ônibus.
           </p>
         </div>
         <div></div>
