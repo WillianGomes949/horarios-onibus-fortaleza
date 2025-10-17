@@ -11,8 +11,8 @@ const Tempo = ({ latitude = -3.7172, longitude = -38.5431 }) => {
   const getUvIndexStyle = (uvIndex) => {
     const style = {
       fontWeight: "bold",
-      padding: "2px 6px",
-      borderRadius: "4px",
+      padding: "0px 10px",
+      borderRadius: "3px",
     };
 
     if (uvIndex <= 2) {
@@ -30,6 +30,22 @@ const Tempo = ({ latitude = -3.7172, longitude = -38.5431 }) => {
     // Acima de 10
     return { ...style, color: "#fff", backgroundColor: "#800080" }; // Extremo (Roxo)
   };
+  const infoUvIndex = (uvIndex) => {
+    if (uvIndex <= 2) {
+      return "Baixo";
+    }
+    if (uvIndex <= 5) {
+      return "Moderado";
+    }
+    if (uvIndex <= 7) {
+      return "Alto";
+    }
+    if (uvIndex <= 10) {
+      return "Muito Alto";
+    }
+}
+
+
 
   useEffect(() => {
     const fetchTempoData = async () => {
@@ -73,7 +89,7 @@ const Tempo = ({ latitude = -3.7172, longitude = -38.5431 }) => {
   }, [latitude, longitude]);
 
   if (loading) {
-    return <div>Carregando previsão do tempo...</div>;
+    return <div>...</div>;
   }
 
   if (error) {
@@ -100,9 +116,11 @@ const Tempo = ({ latitude = -3.7172, longitude = -38.5431 }) => {
       {tempoData.uvIndex > 0 && (
         <p className="flex gap-2">
           <strong>Índice UV:</strong>
-          <span style={getUvIndexStyle(tempoData.uvIndex)}>
+          <span style={getUvIndexStyle(tempoData.uvIndex)} className="flex gap-4">
             {tempoData.uvIndex}
+            <p>{infoUvIndex(tempoData.uvIndex)}</p>
           </span>
+          
         </p>
       )}
     </div>
