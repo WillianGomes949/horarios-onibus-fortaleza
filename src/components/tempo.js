@@ -7,24 +7,24 @@ const Tempo = ({ latitude = -3.7172, longitude = -38.5431 }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // NOVO: Função para determinar o estilo do Índice UV
-  const getUvIndexStyle = (uvIndex, className) => {
-    const style = className;
+  // Função para determinar o estilo do Índice UV
+  const getUvIndexClasses = (uvIndex) => {
+    // Classes base para todos os níveis
+    const baseClasses = "font-bold px-2 py-1 rounded";
 
     if (uvIndex <= 2) {
-      return { ...style, color: "#fff", backgroundColor: "#28a745" }; // Baixo (Verde)
+      return `${baseClasses} text-white bg-lime-500`; // Baixo
     }
     if (uvIndex <= 5) {
-      return { ...style, color: "#000", backgroundColor: "#ffc107" }; // Moderado (Amarelo)
+      return `${baseClasses} text-black bg-yellow-400`; // Moderado
     }
     if (uvIndex <= 7) {
-      return { ...style, color: "#fff", backgroundColor: "#fd7e14" }; // Alto (Laranja)
+      return `${baseClasses} text-white bg-orange-500`; // Alto
     }
     if (uvIndex <= 10) {
-      return { ...style, color: "#fff", backgroundColor: "#dc3545" }; // Muito Alto (Vermelho)
+      return `${baseClasses} text-white bg-red-600`; // Muito Alto
     }
-    // Acima de 10
-    return { ...style, color: "#fff", backgroundColor: "#800080" }; // Extremo (Roxo)
+    return `${baseClasses} text-white bg-purple-700`; // Extremo
   };
   const infoUvIndex = (uvIndex) => {
     if (uvIndex <= 2) {
@@ -99,24 +99,20 @@ const Tempo = ({ latitude = -3.7172, longitude = -38.5431 }) => {
       {/* <h3>Clima Atual</h3>
       <p><strong>Temperatura:</strong> {tempoData.temperature}°C</p> */}
 
-      {/* MUDANÇA 1: Só mostra a chance de chuva se for maior que 0 */}
       {tempoData.precipitation > 0 && (
         <p>
           <strong>Chance de Chuva:</strong> {tempoData.precipitation}%
         </p>
       )}
-
-      {/* MUDANÇA 2: Aplica o estilo dinâmico no Índice UV */}
       {tempoData.uvIndex > 0 && (
-        <div className="flex gap-1 md:gap-2">
-          <strong>Índice UV:</strong>
-          <p
-            style={getUvIndexStyle(tempoData.uvIndex)}
-            className="flex gap-2 rounded-lg px-4"
-          >
-            {tempoData.uvIndex}
-            <span>{infoUvIndex(tempoData.uvIndex)}</span>
-          </p>
+        <div className="flex gap-1.5 md:gap-2 items-center justify-center">
+          <div>
+            <p>Índice UV:</p>
+          </div>
+          <div className={`${getUvIndexClasses(tempoData.uvIndex)} flex gap-1`}>
+            <p>{tempoData.uvIndex}</p>
+            <p>{infoUvIndex(tempoData.uvIndex)}</p>
+          </div>
         </div>
       )}
     </div>
