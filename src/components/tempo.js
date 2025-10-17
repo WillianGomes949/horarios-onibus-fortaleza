@@ -107,7 +107,7 @@ const Tempo = ({ latitude = -3.7172, longitude = -38.5431 }) => {
           <div>
             <p className="font-bold">Índice UV:</p>
           </div>
-          <div className={`${getUvIndexClasses(tempoData.uvIndex)} flex gap-1 px-2 py-1 rounded `}>
+          <div className={`${getUvIndexClasses(tempoData.uvIndex)} flex gap-1 px-2 rounded `}>
             <p>{tempoData.uvIndex}</p>
             <p>{infoUvIndex(tempoData.uvIndex)}</p>
           </div>
