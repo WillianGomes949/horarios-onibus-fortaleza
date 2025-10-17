@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { buscarClima } from "@/services/api";
+import { RiAlertLine, RiLoader3Line } from "@remixicon/react";
 
 const Clima = () => {
   // Estados para armazenar os dados do clima, o status de carregamento e possíveis erros
@@ -29,11 +30,21 @@ const Clima = () => {
 
   // Renderização condicional baseada nos estados
   if (loading) {
-    return <div>Carregando clima... 🌤️</div>;
+    return (
+      <div className="flex gap-4 py-8">
+        <RiLoader3Line className="animate-spin text-orange-400" />
+        <p>Carregando clima...</p>
+      </div>
+    );
   }
 
   if (error) {
-    return <div>Erro ao buscar o clima: {error}</div>;
+    return (
+      <div className="flex gap-4 py-8">
+        <RiAlertLine className=" text-red-400"/>
+        <p>Erro ao buscar o clima: {error}</p>
+      </div>
+    );
   }
 
   // Se não houver dados, não renderiza nada
@@ -43,7 +54,7 @@ const Clima = () => {
 
   // Renderização principal do componente com os dados do clima
   return (
-    <div className="flex justify-between align-middle border border-slate-300 dark:border-slate-600 text-slate-600 dark:text-slate-300 p-8 rounded-lg shadow-md bg-gray-300 dark:bg-slate-700/50 gap-2">
+    <div className=" flex justify-between align-middle border border-slate-300 dark:border-slate-600 text-slate-600 dark:text-slate-300 p-8 rounded-lg shadow-md bg-gray-300 dark:bg-slate-700/50 gap-2">
       <div className="flex flex-col justify-between">
         <h2 className="dark:text-lime-500 font-bold">Clima em {clima.name}</h2>
 
