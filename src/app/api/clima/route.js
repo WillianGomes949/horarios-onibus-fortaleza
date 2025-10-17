@@ -1,4 +1,4 @@
-const API_KEY_WEATHER = process.env.NEXT_PUBLIC_API_KEY_WEATHER;
+const API_KEY_WEATHER = process.env.NEXT_API_KEY_WEATHER;
 
 export async function GET() {
   try {
