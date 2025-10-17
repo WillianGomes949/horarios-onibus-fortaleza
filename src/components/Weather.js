@@ -68,9 +68,9 @@ const Clima = () => {
               {Math.round(clima.main.feels_like)}
               °C
             </p>
-            <p>
+            {/* <p>
               <strong>Umidade:</strong> {clima.main.humidity}%
-            </p>
+            </p> */}
             <p>
               <strong>Vento:</strong> {clima.wind.speed} m/s
             </p>
