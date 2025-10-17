@@ -7,7 +7,7 @@ import EmptyState from "./EmptyState";
 
 const ResultsSection = ({ dados, loading, error, linhaSelecionada }) => {
   return (
-    <div className="mt-6">
+    <div>
       {/* Resto do código permanece igual */}
       {!dados && !loading && !error && <EmptyState type="initial" />}
 

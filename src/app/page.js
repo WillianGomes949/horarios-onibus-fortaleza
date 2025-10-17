@@ -98,8 +98,6 @@ export default function BusScheduleApp() {
             Veja os horários atualizados das linhas de ônibus.
           </p>
         </div>
-        <div></div>
-
         {/* Formulário de Busca */}
         <SearchForm
           linha={linha}
@@ -127,7 +125,7 @@ export default function BusScheduleApp() {
           linhaSelecionada={linhaSelecionada}
         />
         <section>
-          <Clima/>
+          <Clima />
         </section>
         <div className="text-center text-sm text-slate-500 dark:text-slate-400 mt-4">
           Willian Gomes © 2025
