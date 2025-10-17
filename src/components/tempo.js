@@ -9,22 +9,20 @@ const Tempo = ({ latitude = -3.7172, longitude = -38.5431 }) => {
 
   // Função para determinar o estilo do Índice UV
   const getUvIndexClasses = (uvIndex) => {
-    // Classes base para todos os níveis
-    const baseClasses = "font-bold px-2 py-1 rounded";
-
+    // Classes base para todos
     if (uvIndex <= 2) {
-      return `${baseClasses} text-white bg-lime-500`; // Baixo
+      return `text-white bg-lime-500`; // Baixo
     }
     if (uvIndex <= 5) {
-      return `${baseClasses} text-black bg-yellow-400`; // Moderado
+      return `text-black bg-yellow-400`; // Moderado
     }
     if (uvIndex <= 7) {
-      return `${baseClasses} text-white bg-orange-500`; // Alto
+      return `text-white bg-orange-500`; // Alto
     }
     if (uvIndex <= 10) {
-      return `${baseClasses} text-white bg-red-600`; // Muito Alto
+      return `text-white bg-red-500`; // Muito Alto
     }
-    return `${baseClasses} text-white bg-purple-700`; // Extremo
+    return `text-white bg-purple-700`; // Extremo
   };
   const infoUvIndex = (uvIndex) => {
     if (uvIndex <= 2) {
@@ -107,9 +105,9 @@ const Tempo = ({ latitude = -3.7172, longitude = -38.5431 }) => {
       {tempoData.uvIndex > 0 && (
         <div className="flex gap-1.5 md:gap-2 items-center justify-center">
           <div>
-            <p>Índice UV:</p>
+            <p className="font-bold">Índice UV:</p>
           </div>
-          <div className={`${getUvIndexClasses(tempoData.uvIndex)} flex gap-1`}>
+          <div className={`${getUvIndexClasses(tempoData.uvIndex)} flex gap-1 px-2 py-1 rounded`}>
             <p>{tempoData.uvIndex}</p>
             <p>{infoUvIndex(tempoData.uvIndex)}</p>
           </div>
