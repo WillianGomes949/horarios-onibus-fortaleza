@@ -7,6 +7,7 @@ import ResultsSection from "@/components/ResultsSection";
 import SearchForm from "@/components/SearchForm";
 import NetworkStatus from "@/components/NetworkStatus";
 import DownloadPDF from "@/components/DownloadPDF";
+import Clima from "@/components/Weather";
 
 export default function BusScheduleApp() {
   const [linha, setLinha] = useState("");
@@ -125,6 +126,9 @@ export default function BusScheduleApp() {
           error={error}
           linhaSelecionada={linhaSelecionada}
         />
+        <section>
+          <Clima/>
+        </section>
         <div className="text-center text-sm text-slate-500 dark:text-slate-400 mt-4">
           Willian Gomes © 2025
         </div>

@@ -1,4 +1,3 @@
-
 export async function GET() {
   try {
     const response = await fetch('http://gistapis.etufor.ce.gov.br:8081/api/linhas/');

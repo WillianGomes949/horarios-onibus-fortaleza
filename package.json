@@ -9,6 +9,7 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@next/env": "^15.5.6",
     "@remixicon/react": "^4.6.0",
     "jspdf": "^3.0.3",
     "jspdf-autotable": "^5.0.2",

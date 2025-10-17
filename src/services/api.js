@@ -17,3 +17,11 @@ export const buscarHorarios = async (linha, data) => {
   
   return await response.json();
 };
+
+export const buscarClima = async () => {
+  const response = await fetch('/api/clima');
+  if (!response.ok) {
+    throw new Error('Erro ao carregar clima');
+  }
+  return await response.json();
+};
