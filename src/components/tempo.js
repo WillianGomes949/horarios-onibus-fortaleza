@@ -8,12 +8,8 @@ const Tempo = ({ latitude = -3.7172, longitude = -38.5431 }) => {
   const [error, setError] = useState(null);
 
   // NOVO: Função para determinar o estilo do Índice UV
-  const getUvIndexStyle = (uvIndex) => {
-    const style = {
-      fontWeight: "bold",
-      padding: "0px 10px",
-      borderRadius: "3px",
-    };
+  const getUvIndexStyle = (uvIndex, className) => {
+    const style = className;
 
     if (uvIndex <= 2) {
       return { ...style, color: "#fff", backgroundColor: "#28a745" }; // Baixo (Verde)
@@ -43,9 +39,7 @@ const Tempo = ({ latitude = -3.7172, longitude = -38.5431 }) => {
     if (uvIndex <= 10) {
       return "Muito Alto";
     }
-}
-
-
+  };
 
   useEffect(() => {
     const fetchTempoData = async () => {
@@ -114,14 +108,16 @@ const Tempo = ({ latitude = -3.7172, longitude = -38.5431 }) => {
 
       {/* MUDANÇA 2: Aplica o estilo dinâmico no Índice UV */}
       {tempoData.uvIndex > 0 && (
-        <p className="flex gap-2">
+        <div className="flex gap-1 md:gap-2">
           <strong>Índice UV:</strong>
-          <span style={getUvIndexStyle(tempoData.uvIndex)} className="flex gap-4">
+          <p
+            style={getUvIndexStyle(tempoData.uvIndex)}
+            className="flex gap-2 rounded-lg px-4"
+          >
             {tempoData.uvIndex}
-            <p>{infoUvIndex(tempoData.uvIndex)}</p>
-          </span>
-          
-        </p>
+            <span>{infoUvIndex(tempoData.uvIndex)}</span>
+          </p>
+        </div>
       )}
     </div>
   );

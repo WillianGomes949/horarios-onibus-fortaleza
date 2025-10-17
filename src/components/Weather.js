@@ -55,7 +55,7 @@ const Clima = () => {
 
   // Renderização principal do componente com os dados do clima
   return (
-      <div className=" flex justify-between align-middle border border-slate-300 dark:border-slate-600 text-slate-600 dark:text-slate-300 p-8 rounded-lg shadow-md bg-gray-300 dark:bg-slate-700/50 gap-2">
+      <div className=" flex justify-between align-middle border border-slate-300 dark:border-slate-600 text-slate-600 dark:text-slate-300 p-2 md:p-8 rounded-lg shadow-md bg-gray-300 dark:bg-slate-700/50 md:gap-2">
         <div className="flex flex-col justify-between">
           <h2 className="dark:text-lime-500 font-bold">
             Clima em {clima.name}
