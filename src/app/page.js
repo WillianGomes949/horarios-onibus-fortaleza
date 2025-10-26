@@ -8,6 +8,7 @@ import SearchForm from "@/components/SearchForm";
 import NetworkStatus from "@/components/NetworkStatus";
 import DownloadPDF from "@/components/DownloadPDF";
 import Clima from "@/components/Weather";
+import { MarqueeComponent } from "@/components/fast";
 
 export default function BusScheduleApp() {
   const [linha, setLinha] = useState("");
@@ -124,6 +125,10 @@ export default function BusScheduleApp() {
           error={error}
           linhaSelecionada={linhaSelecionada}
         />
+        <section>
+          <MarqueeComponent/>
+        </section>
+        {/* Clima */}
         <section>
           <Clima />
         </section>
