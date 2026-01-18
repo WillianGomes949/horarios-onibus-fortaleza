@@ -7,22 +7,40 @@ import EmptyState from "./EmptyState";
 
 const ResultsSection = ({ dados, loading, error, linhaSelecionada }) => {
   return (
-    <div>
-      {/* Resto do código permanece igual */}
-      {!dados && !loading && !error && <EmptyState type="initial" />}
-
-      {error && <ErrorMessage message={error} />}
-
-      {loading && <LoadingSpinner />}
-
-      {dados && dados.length > 0 && <HorariosTable dados={dados} linhaSelecionada={linhaSelecionada}/>}
-
-      {dados && dados.length === 0 && !loading && (
-        <EmptyState type="noResults" />
+    <div className="w-full transition-all duration-300 ease-in-out">
+      {/* Estado Inicial */}
+      {!dados && !loading && !error && (
+        <div className="mt-8 animate-fade-in">
+            <EmptyState type="initial" />
+        </div>
       )}
-      {/* Cabeçalho com informações da linha E horários extremos */}
-      {linhaSelecionada && dados && (
-        <LineHeader linhaSelecionada={linhaSelecionada} dados={dados} />
+
+      {/* Erro */}
+      {error && (
+         <div className="mt-6 animate-pulse">
+            <ErrorMessage message={error} />
+         </div>
+      )}
+
+      {/* Carregando */}
+      {loading && (
+        <div className="py-12 flex justify-center">
+            <LoadingSpinner />
+        </div>
+      )}
+
+      {/* Conteúdo Principal */}
+      {dados && !loading && (
+        <>
+            {dados.length > 0 ? (
+                <div className="animate-fade-in flex flex-col gap-6">
+                    <HorariosTable dados={dados} linhaSelecionada={linhaSelecionada} />
+                    <LineHeader linhaSelecionada={linhaSelecionada} dados={dados} />
+                </div>
+            ) : (
+                <EmptyState type="noResults" />
+            )}
+        </>
       )}
     </div>
   );

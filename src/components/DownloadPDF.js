@@ -1,5 +1,5 @@
 import React from "react";
-import { RiArrowDownLine } from "@remixicon/react";
+import { RiFileDownloadLine } from "@remixicon/react";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 
@@ -31,7 +31,8 @@ const DownloadPDF = ({ dados, linhaSelecionada, data }) => {
     let yPosition = 45;
 
     // Para cada posto
-    dados.forEach((posto, index) => {
+    dados.forEach((posto) => {
+      // Verifica se precisa de nova página
       if (yPosition > 250) {
         doc.addPage();
         yPosition = 20;
@@ -85,10 +86,10 @@ const DownloadPDF = ({ dados, linhaSelecionada, data }) => {
   return (
     <button
       onClick={gerarPDF}
-      className="flex items-center gap-2 px-4 py-2 bg-orange-600 hover:bg-orange-700 text-white font-semibold rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+      className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-slate-600 dark:text-slate-300 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-lg transition-all shadow-sm"
     >
-      <RiArrowDownLine size={18} />
-      Baixar PDF
+      <RiFileDownloadLine size={18} className="text-lime-600" />
+      <span>Salvar PDF</span>
     </button>
   );
 };

@@ -1,43 +1,11 @@
 "use client";
-// tempo.js
 import React, { useState, useEffect } from "react";
+import { RiSunLine, RiUmbrellaLine } from "@remixicon/react";
 
 const Tempo = ({ latitude = -3.7172, longitude = -38.5431 }) => {
   const [tempoData, setTempoData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
-  // Função para determinar o estilo do Índice UV
-  const getUvIndexClasses = (uvIndex) => {
-    // Classes base para todos
-    if (uvIndex <= 2) {
-      return `text-white bg-lime-500`; // Baixo
-    }
-    if (uvIndex <= 5) {
-      return `text-black bg-yellow-400`; // Moderado
-    }
-    if (uvIndex <= 7) {
-      return `text-white bg-orange-500`; // Alto
-    }
-    if (uvIndex <= 10) {
-      return `text-white bg-red-500`; // Muito Alto
-    }
-    return `text-white bg-purple-700`; // Extremo
-  };
-  const infoUvIndex = (uvIndex) => {
-    if (uvIndex <= 2) {
-      return "Baixo";
-    }
-    if (uvIndex <= 5) {
-      return "Moderado";
-    }
-    if (uvIndex <= 7) {
-      return "Alto";
-    }
-    if (uvIndex <= 10) {
-      return "Muito Alto";
-    }
-  };
 
   useEffect(() => {
     const fetchTempoData = async () => {
@@ -56,7 +24,7 @@ const Tempo = ({ latitude = -3.7172, longitude = -38.5431 }) => {
       try {
         const response = await fetch(url);
         if (!response.ok) {
-          throw new Error("A resposta da rede não foi bem-sucedida.");
+          throw new Error("Erro na rede.");
         }
         const data = await response.json();
 
@@ -65,10 +33,13 @@ const Tempo = ({ latitude = -3.7172, longitude = -38.5431 }) => {
           (time) => new Date(time) >= now
         );
 
+        // Se currentIndex for -1 (não encontrado), usa o índice 0 como fallback
+        const index = currentIndex !== -1 ? currentIndex : 0;
+
         setTempoData({
-          temperature: data.hourly.temperature_2m[currentIndex],
-          precipitation: data.hourly.precipitation_probability[currentIndex],
-          uvIndex: Math.round(data.hourly.uv_index[currentIndex]), // Arredonda o UV para um inteiro
+          temperature: data.hourly.temperature_2m[index],
+          precipitation: data.hourly.precipitation_probability[index],
+          uvIndex: Math.round(data.hourly.uv_index[index]),
         });
       } catch (err) {
         setError(err.message);
@@ -80,40 +51,31 @@ const Tempo = ({ latitude = -3.7172, longitude = -38.5431 }) => {
     fetchTempoData();
   }, [latitude, longitude]);
 
-  if (loading) {
-    return <div>...</div>;
-  }
+  const getUvColor = (uv) => {
+      if (uv <= 2) return "bg-lime-400 text-lime-900"; // Baixo
+      if (uv <= 5) return "bg-yellow-400 text-yellow-900"; // Moderado
+      if (uv <= 7) return "bg-orange-500 text-white"; // Alto
+      return "bg-red-500 text-white"; // Muito Alto/Extremo
+  };
 
-  if (error) {
-    return <div>Erro ao buscar dados: {error}</div>;
-  }
-
-  if (!tempoData) {
-    return null;
-  }
+  if (loading || error || !tempoData) return null;
 
   return (
-    <div>
-      {/* <h3>Clima Atual</h3>
-      <p><strong>Temperatura:</strong> {tempoData.temperature}°C</p> */}
-
+    <>
       {tempoData.precipitation > 0 && (
-        <p>
-          <strong>Chance de Chuva:</strong> {tempoData.precipitation}%
-        </p>
-      )}
-      {tempoData.uvIndex > 0 && (
-        <div className="flex gap-1.5 md:gap-2 items-center justify-start">
-          <div>
-            <p className="font-bold">Índice UV:</p>
-          </div>
-          <div className={`${getUvIndexClasses(tempoData.uvIndex)} flex gap-1 px-2 rounded `}>
-            <p>{tempoData.uvIndex}</p>
-            <p>{infoUvIndex(tempoData.uvIndex)}</p>
-          </div>
+        <div className="flex items-center gap-1 text-xs font-medium" title="Chance de Chuva">
+           <RiUmbrellaLine size={14} className="opacity-70"/>
+           {tempoData.precipitation}%
         </div>
       )}
-    </div>
+      
+      {tempoData.uvIndex > 0 && (
+        <div className={`flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wide ${getUvColor(tempoData.uvIndex)}`} title={`Índice UV: ${tempoData.uvIndex}`}>
+            <RiSunLine size={12} />
+            UV {tempoData.uvIndex}
+        </div>
+      )}
+    </>
   );
 };
 

@@ -1,96 +1,80 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { buscarClima } from "@/services/api";
-import { RiAlertLine, RiLoader3Line } from "@remixicon/react";
+import { RiMapPinLine, RiWindyLine } from "@remixicon/react";
 import Tempo from "./tempo";
 
 const Clima = () => {
-  // Estados para armazenar os dados do clima, o status de carregamento e possíveis erros
   const [clima, setClima] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Função assíncrona para buscar os dados do clima
     const fetchClima = async () => {
       try {
-        // Chama a função da sua api.js
         const data = await buscarClima();
         setClima(data);
       } catch (err) {
-        // Em caso de erro, atualiza o estado de erro
         setError(err.message);
       } finally {
-        // Ao final (sucesso ou erro), define o carregamento como falso
         setLoading(false);
       }
     };
-
     fetchClima();
-  }, []); // O array vazio [] garante que o useEffect rode apenas uma vez, quando o componente é montado
+  }, []);
 
-  // Renderização condicional baseada nos estados
-  if (loading) {
-    return (
-      <div className="flex gap-4 py-8">
-        <RiLoader3Line className="animate-spin text-orange-400" />
-        <p>Carregando clima...</p>
-      </div>
-    );
-  }
+  if (loading) return (
+    <div className="bg-slate-50 dark:bg-slate-800/50 rounded-xl p-4 h-32 animate-pulse flex items-center justify-center border border-slate-200 dark:border-slate-700">
+        <span className="text-slate-400 text-sm">Carregando clima...</span>
+    </div>
+  );
 
-  if (error) {
-    return (
-      <div className="flex gap-4 py-8">
-        <RiAlertLine className=" text-red-400" />
-        <p>Erro ao buscar o clima: {error}</p>
-      </div>
-    );
-  }
+  if (error) return null; 
+  if (!clima) return null;
 
-  // Se não houver dados, não renderiza nada
-  if (!clima) {
-    return null;
-  }
-
-  // Renderização principal do componente com os dados do clima
   return (
-      <div className=" flex justify-between align-middle border border-slate-300 dark:border-slate-600 text-slate-600 dark:text-slate-300 p-2 md:p-8 rounded-lg shadow-md bg-gray-300 dark:bg-slate-700/50 md:gap-2">
-        <div className="flex flex-col justify-between">
-          <h2 className="dark:text-lime-500 font-bold">
-            Clima em {clima.name}
-          </h2>
+    <div className="bg-linear-to-br from-blue-500 to-blue-600 dark:from-slate-800 dark:to-slate-900 rounded-xl p-4 text-white shadow-lg relative overflow-hidden">
+        {/* Decoração de fundo */}
+        <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl -mr-10 -mt-10 pointer-events-none"></div>
 
-          <p className="font-bold text-4xl">{Math.round(clima.main.temp)}°C</p>
-          <div>
-            <p>
-              <strong>Sensação Térmica:</strong>{" "}
-              {Math.round(clima.main.feels_like)}
-              °C
-            </p>
-            {/* <p>
-              <strong>Umidade:</strong> {clima.main.humidity}%
-            </p> */}
-            <p>
-              <strong>Vento:</strong> {clima.wind.speed} m/s
-            </p>
-            <Tempo />
-          </div>
+        <div className="relative z-10 flex justify-between items-center">
+            <div>
+                <div className="flex items-center gap-1 text-blue-100 text-xs font-medium mb-1">
+                    <RiMapPinLine size={14} />
+                    {clima.name}
+                </div>
+                <div className="text-4xl font-bold tracking-tighter">
+                    {Math.round(clima.main.temp)}°
+                </div>
+                <div className="text-sm text-blue-100">
+                    Sensação {Math.round(clima.main.feels_like)}°
+                </div>
+            </div>
+
+            <div className="flex flex-col items-center">
+                <Image
+                    src={`https://openweathermap.org/img/wn/${clima.weather[0].icon}@2x.png`}
+                    alt={clima.weather[0].description}
+                    width={60}
+                    height={60}
+                    className="drop-shadow-md"
+                />
+                <span className="text-xs capitalize font-medium text-center max-w-20 leading-tight">
+                    {clima.weather[0].description}
+                </span>
+            </div>
         </div>
-        <div className="flex flex-col justify-center align-middle">
-          <Image
-            className="drop-shadow-xl/20"
-            width={150}
-            height={150}
-            src={`https://openweathermap.org/img/wn/${clima.weather[0].icon}@2x.png`}
-            alt={clima.weather[0].description}
-          />
-          <p className="text-center capitalize">
-            {clima.weather[0].description}
-          </p>
-          
+
+        {/* Footer do Widget com dados extras */}
+        <div className="mt-4 pt-3 border-t border-white/20 flex flex-wrap gap-3 items-center">
+             <div className="flex items-center gap-1 text-xs font-medium">
+                <RiWindyLine size={14} className="opacity-70"/>
+                {clima.wind.speed} m/s
+             </div>
+             {/* Componente Tempo injetado aqui */}
+             <Tempo /> 
         </div>
-      </div>
+    </div>
   );
 };
 

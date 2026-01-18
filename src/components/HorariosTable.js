@@ -1,20 +1,16 @@
 import React, { useState, useEffect } from "react";
 import {
-  RiShakeHandsFill,
-  RiTableView,
-  RiTimeFill,
-  RiEyeLine,
-  RiEyeOffLine,
-  RiBus2Fill,
-  RiTimerFlashLine,
+  RiArrowDownSLine,
+  RiArrowUpSLine,
+  RiWheelchairFill,
   RiTimeLine,
+  RiTimerFlashLine,
 } from "@remixicon/react";
 
-const HorariosTable = ({dados, linhaSelecionada}) => {
+const HorariosTable = ({ dados, linhaSelecionada }) => {
   const [tabelasVisiveis, setTabelasVisiveis] = useState({});
   const [proximosHorarios, setProximosHorarios] = useState([]);
 
-  // Calcular próximos horários baseado na hora atual
   useEffect(() => {
     if (!dados || dados.length === 0) return;
 
@@ -32,24 +28,25 @@ const HorariosTable = ({dados, linhaSelecionada}) => {
           posto: posto.postoControle,
           horario: horarioObj.horario,
           tabela: horarioObj.tabela,
-          acessivel: horarioObj.acessivel,
+          acessivel: horarioObj.acessivel === "sim",
           timestamp: new Date(`2000-01-01T${horarioObj.horario}`).getTime(),
         });
       });
     });
 
-    // Filtrar horários futuros (incluindo o atual) e ordenar
     const horariosFuturos = todosHorarios
-      .filter(
-        (h) => h.timestamp >= new Date(`2000-01-01T${horaAtual}`).getTime()
-      )
+      .filter((h) => h.timestamp >= new Date(`2000-01-01T${horaAtual}`).getTime())
       .sort((a, b) => a.timestamp - b.timestamp)
-      .slice(0, 2); // Pegar os 4 próximos horários
+      .slice(0, 4); 
 
     setProximosHorarios(horariosFuturos);
+    
+    // Auto-expandir a primeira tabela se houver dados
+    if (dados.length > 0) {
+        setTabelasVisiveis({ 0: true });
+    }
   }, [dados]);
 
-  // Toggle para mostrar/ocultar tabela
   const toggleTabela = (postoIndex) => {
     setTabelasVisiveis((prev) => ({
       ...prev,
@@ -60,94 +57,60 @@ const HorariosTable = ({dados, linhaSelecionada}) => {
   if (!dados || dados.length === 0) return null;
 
   return (
-    <div className="space-y-6 mt-4">
-      <div className="text-center mb-4">
-        <h1 className=" text-sm md:text-xl font-bold text-lime-600 dark:text-lime-400">
-          Linha {linhaSelecionada.numero} - {linhaSelecionada.nome}
-        </h1>
-        <p className="text-xs md:text-sm lime-500 dark:text-lime-300 mt-1">
-          {linhaSelecionada.tipoLinha}
+    <div className="space-y-8 animate-fade-in">
+      {/* Cabeçalho da Linha */}
+      <div className="text-center bg-white dark:bg-slate-800 p-4 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700">
+        <h2 className="text-2xl font-black text-slate-800 dark:text-white tracking-tight">
+          {linhaSelecionada.numero}
+        </h2>
+        <p className="text-sm font-medium text-slate-500 dark:text-slate-400 mt-1 uppercase">
+          {linhaSelecionada.nome}
         </p>
+        <span className="inline-block mt-2 px-3 py-1 bg-lime-100 dark:bg-lime-900/30 text-lime-700 dark:text-lime-400 text-xs font-bold rounded-full">
+          {linhaSelecionada.tipoLinha}
+        </span>
       </div>
-      {/* Próximos Horários */}
+
+      {/* Próximos Horários (Cards de Destaque) */}
       {proximosHorarios.length > 0 && (
-        <div className=" bg-lime-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600 rounded-lg p-2">
-          <h3 className="text-lg font-bold text-lime-700 dark:text-lime-400 mb-3 flex items-center gap-2">
-            <RiTimeLine size={20} />
-            Próximos Horários
-          </h3>
+        <div className="space-y-3">
+          <div className="flex items-center gap-2 px-1">
+            <RiTimerFlashLine className="text-orange-500" size={24} />
+            <h3 className="text-lg font-bold text-slate-700 dark:text-slate-200">
+              Próximas Saídas
+            </h3>
+          </div>
 
-          <div className="flex flex-col md:flex-row items-baseline gap-2">
-            {dados.map((posto, postoIndex) => {
-              // Filtrar próximos horários apenas para este posto
-              const proximosDestePosto = proximosHorarios
-                .filter((horario) => horario.posto === posto.postoControle)
-                .slice(0, 2); // Pegar apenas os 2 próximos deste posto
-
-              if (proximosDestePosto.length === 0) return null;
-
+          <div className="grid grid-cols-2 gap-3">
+            {proximosHorarios.map((horario, index) => {
+              const isFirst = index === 0;
               return (
                 <div
-                  key={postoIndex}
-                  className=" w-full bg-lime-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600 rounded-lg p-2"
+                  key={index}
+                  className={`relative p-3 rounded-xl border flex flex-col justify-between min-h-[110px] ${
+                    isFirst
+                      ? "bg-lime-600 text-white border-lime-600 shadow-lg shadow-lime-600/20"
+                      : "bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700"
+                  }`}
                 >
-                  <div
-                    className={`grid gap-2 ${
-                      postoIndex > 2 || postoIndex < 4
-                        ? "md:grid-cols-1"
-                        : "md:grid-cols-2"
-                    }`}
-                  >
-                    {proximosDestePosto.map((horario, index) => {
-                      const isProximoGeral =
-                        proximosHorarios[0]?.posto === horario.posto &&
-                        proximosHorarios[0]?.horario === horario.horario;
-
-                      return (
-                        <div
-                          key={index}
-                          className={`flex flex-col justify-between md:h-40 bg-white dark:bg-slate-600 rounded-lg p-2 border ${
-                            isProximoGeral
-                              ? "border-slate-400 dark:border-lime-500 shadow-lg"
-                              : "border-slate-100 dark:border-slate-500"
-                          }`}
-                        >
-                          <div>
-                            <div className="font-normal text-lime-600 dark:text-lime-400 lg:text-sm text-xs">
-                              {horario.posto}
-                            </div>
-                            <div className="text-2xl font-bold text-slate-700 dark:text-slate-200 mt-1">
-                              {horario.horario}
-                            </div>
-                            <div className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-                              Tabela: {horario.tabela} • Adaptado:{" "}
-                              {horario.acessivel}
-                            </div>
-                          </div>
-
-                          <div>
-                            <div className="">
-                              {isProximoGeral && (
-                                <div className="flex items-center gap-2 text-xs text-orange-500 dark:text-orange-400 mt-1">
-                                  <span>
-                                    <RiTimerFlashLine size={20} />
-                                  </span>
-                                  <p>Próximo Horário Programado</p>
-                                </div>
-                              )}
-                              {!isProximoGeral && index === 0 && (
-                                <div className="flex items-center gap-2  text-xs text-orange-500 dark:text-orange-400 mt-1">
-                                  <span>
-                                    <RiTimerFlashLine size={20} />
-                                  </span>
-                                  <p>Próximo Horário Programado</p>
-                                </div>
-                              )}
-                            </div>
-                          </div>
-                        </div>
-                      );
-                    })}
+                  {isFirst && (
+                    <span className="absolute -top-2 -right-2 flex h-4 w-4">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-lime-400 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-4 w-4 bg-orange-400 border-2 border-white"></span>
+                    </span>
+                  )}
+                  
+                  <div className="text-xs font-medium opacity-90 truncate pr-2">
+                    {horario.posto}
+                  </div>
+                  
+                  <div className={`text-3xl font-bold tracking-tighter my-1 ${isFirst ? 'text-white' : 'text-slate-800 dark:text-white'}`}>
+                    {horario.horario}
+                  </div>
+                  
+                  <div className="flex items-center justify-between text-xs opacity-80">
+                    <span>Tab: {horario.tabela}</span>
+                    {horario.acessivel && <RiWheelchairFill size={16} />}
                   </div>
                 </div>
               );
@@ -156,93 +119,71 @@ const HorariosTable = ({dados, linhaSelecionada}) => {
         </div>
       )}
 
-      {/* Tabelas de Horários */}
-      <div className="space-y-4 div bg-lime-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600 rounded-lg p-2">
-        <div className="text-lg font-bold text-lime-700 dark:text-lime-400 mb-3 flex items-center gap-2">
-          <RiBus2Fill size={20} />
-          <h1>Todos os Horários</h1>
+      {/* Tabelas Completas (Acordeão) */}
+      <div className="space-y-4">
+        <div className="flex items-center gap-2 px-1 mb-2">
+           <RiTimeLine className="text-slate-400" size={20} />
+           <h3 className="text-lg font-bold text-slate-700 dark:text-slate-300">
+             Quadro Completo
+           </h3>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-          {dados.map((posto, index) => (
-            <div
-              key={index}
-              className="bg-lime-100 dark:bg-slate-700/50 rounded-lg overflow-hidden border border-slate-200 dark:border-slate-600"
+        {dados.map((posto, index) => (
+          <div
+            key={index}
+            className="bg-white dark:bg-slate-800 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-sm"
+          >
+            <button
+              onClick={() => toggleTabela(index)}
+              className="w-full p-4 flex items-center justify-between bg-slate-50 dark:bg-slate-800/80 active:bg-slate-100 dark:active:bg-slate-700 transition-colors"
             >
-              {/* Cabeçalho da Tabela (sempre visível) */}
-              <div
-                className="p-2 cursor-pointer hover:bg-lime-200 dark:hover:bg-slate-600 transition-colors duration-200"
-                onClick={() => toggleTabela(index)}
-              >
-                <div className="flex justify-between items-center">
-                  <div className="flex gap-2 items-center">
-                    <h3 className="text-xs md:text-lg font-semibold text-lime-600 dark:text-lime-400">
-                      {posto.postoControle}
-                    </h3>
-                  </div>
-                  <div className="flex md:flex-row items-center gap-2 text-slate-500 dark:text-slate-400">
-                    {tabelasVisiveis[index] ? (
-                      <>
-                        <RiEyeOffLine size={18} />
-                        <span className="text-sm">Ocultar</span>
-                      </>
-                    ) : (
-                      <>
-                        <RiEyeLine size={18} />
-                        <span className="text-sm">Mostrar</span>
-                      </>
-                    )}
-                  </div>
-                </div>
+              <div className="text-left overflow-hidden">
+                <span className="text-xs text-slate-400 uppercase font-bold tracking-wider">Saída de</span>
+                <h4 className="font-semibold text-slate-700 dark:text-slate-200 truncate pr-4">
+                  {posto.postoControle}
+                </h4>
               </div>
+              <div className="text-slate-400">
+                {tabelasVisiveis[index] ? <RiArrowUpSLine size={24} /> : <RiArrowDownSLine size={24} />}
+              </div>
+            </button>
 
-              {/* Tabela (visível apenas quando ativada) */}
-              {tabelasVisiveis[index] && (
-                <div className="max-h-80 overflow-y-auto custom-scrollbar pr-2">
-                  <table className="w-full text-left text-sm">
-                    <thead className="bg-lime-50 dark:bg-slate200 dark:bg-slate-800 sticky top-0">
-                      <tr>
-                        <th className="p-2 text-lime-700 dark:text-slate-300">
-                          <RiTimeLine size={16} /> Horário
-                        </th>
-
-                        <th className="p-2 text-lime-700 dark:text-slate-300">
-                          <RiShakeHandsFill size={16} /> Acessível
-                        </th>
-                        <th className="p-2 text-lime-700 dark:text-slate-300">
-                          <RiTableView size={16} /> Tabela
-                        </th>
+            {/* Conteúdo da Tabela com Animação simples de height seria ideal, mas aqui usamos render condicional */}
+            {tabelasVisiveis[index] && (
+              <div className="max-h-96 overflow-y-auto custom-scrollbar bg-white dark:bg-slate-900">
+                <table className="w-full text-left text-sm">
+                  <thead className="bg-slate-100 dark:bg-slate-800 sticky top-0 z-10 shadow-sm">
+                    <tr>
+                      <th className="p-3 text-xs font-bold text-slate-500 uppercase tracking-wider">Horário</th>
+                      <th className="p-3 text-xs font-bold text-slate-500 uppercase tracking-wider text-center">Acessível</th>
+                      <th className="p-3 text-xs font-bold text-slate-500 uppercase tracking-wider text-right">Tabela</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+                    {posto.horarios.map((horario, hIndex) => (
+                      <tr 
+                        key={hIndex} 
+                        className="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors"
+                      >
+                        <td className="p-3 font-bold text-slate-700 dark:text-slate-300 font-mono text-base">
+                          {horario.horario}
+                        </td>
+                        <td className="p-3 text-center">
+                          {horario.acessivel === "sim" && (
+                            <RiWheelchairFill size={18} className="inline text-blue-500" />
+                          )}
+                        </td>
+                        <td className="p-3 text-right text-slate-500 dark:text-slate-400 font-mono">
+                          {horario.tabela}
+                        </td>
                       </tr>
-                    </thead>
-                    <tbody>
-                      {posto.horarios.map((horario, horarioIndex) => {
-                        const isExtra = parseInt(horario.tabela, 10) > 100;
-                        return (
-                          <tr
-                            key={horarioIndex}
-                            className={`bg-lime-50 dark:bg-slate-700/50 border-b border-slate-300 dark:border-slate-600 ${
-                              isExtra
-                                ? "text-amber-500 dark:text-amber-400"
-                                : "text-slate-700 dark:text-slate-300"
-                            }`}
-                            title={isExtra ? "Extra" : ""}
-                          >
-                            <td className="p-2 font-mono">{horario.horario}</td>
-
-                            <td className="p-2 capitalize">
-                              {horario.acessivel}
-                            </td>
-                            <td className="p-2 font-mono">{horario.tabela}</td>
-                          </tr>
-                        );
-                      })}
-                    </tbody>
-                  </table>
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </div>
+        ))}
       </div>
     </div>
   );

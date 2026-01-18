@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import LineSearch from "./LineSearch";
 import DatePicker from "./DatePicker";
+import { RiSearchLine } from "@remixicon/react";
 
 const SearchForm = ({
   linha,
@@ -16,7 +17,6 @@ const SearchForm = ({
   const [linhasFiltradas, setLinhasFiltradas] = useState([]);
   const [mostrarSugestoes, setMostrarSugestoes] = useState(false);
 
-  // Filtrar linhas baseado no input
   useEffect(() => {
     if (linha.trim() === "") {
       setLinhasFiltradas([]);
@@ -49,31 +49,45 @@ const SearchForm = ({
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-        <LineSearch
-          linha={linha}
-          linhasFiltradas={linhasFiltradas}
-          mostrarSugestoes={mostrarSugestoes}
-          loadingLinhas={loadingLinhas}
-          onLinhaChange={onLinhaChange}
-          onSelecionarLinha={handleSelecionarLinha}
-          onFocus={() => setMostrarSugestoes(linhasFiltradas.length > 0)}
-          onBlur={() => setTimeout(() => setMostrarSugestoes(false), 200)}
-        />
-
-        <DatePicker data={data} onDataChange={onDataChange} />
+    <form onSubmit={handleSubmit} className="relative z-10">
+      <div className="flex flex-col md:flex-row gap-4 mb-4">
+        {/* Wrapper para garantir que o LineSearch ocupe espaço correto */}
+        <div className="w-full md:flex-1">
+           <LineSearch
+            linha={linha}
+            linhasFiltradas={linhasFiltradas}
+            mostrarSugestoes={mostrarSugestoes}
+            loadingLinhas={loadingLinhas}
+            onLinhaChange={onLinhaChange}
+            onSelecionarLinha={handleSelecionarLinha}
+            onFocus={() => setMostrarSugestoes(linhasFiltradas.length > 0)}
+            onBlur={() => setTimeout(() => setMostrarSugestoes(false), 200)}
+          />
+        </div>
+        
+        <div className="w-full md:w-auto md:min-w-[180px]">
+          <DatePicker data={data} onDataChange={onDataChange} />
+        </div>
       </div>
 
       <button
         type="submit"
         disabled={loading || !linha}
-        className="w-full  px-3 py-3 bg-lime-600 hover:bg-lime-700 text-white font-bold rounded-lg 
-             disabled:bg-slate-400 disabled:text-slate-200 dark:disabled:bg-slate-600 
-             disabled:cursor-not-allowed transition-all duration-200 
-             focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+        className="w-full h-14 flex items-center justify-center gap-2 bg-lime-600 hover:bg-lime-700 active:bg-lime-800 text-white font-bold text-lg rounded-xl
+             disabled:bg-slate-300 disabled:text-slate-500 dark:disabled:bg-slate-700 dark:disabled:text-slate-500
+             disabled:cursor-not-allowed transition-all duration-200 transform active:scale-[0.98] shadow-lg shadow-lime-600/20"
       >
-        {loading ? "Buscando..." : "Buscar Horários"}
+        {loading ? (
+          <div className="flex items-center gap-2">
+            <span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></span>
+            Buscando...
+          </div>
+        ) : (
+          <>
+            <RiSearchLine size={22} />
+            Buscar Horários
+          </>
+        )}
       </button>
     </form>
   );
