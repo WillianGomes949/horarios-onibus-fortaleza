@@ -88,13 +88,13 @@ const DownloadPDF = ({ dados, linhaSelecionada, data }) => {
   if (!dados || dados.length === 0) return null;
 
   return (
-    <button
-      onClick={gerarPDF}
-      className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-[var(--text-muted)] bg-[var(--bg-input)] border border-[var(--border)] hover:text-[var(--text-main)] hover:border-[var(--primary)] rounded-[var(--radius)] transition-all shadow-sm group"
-    >
-      <RiFileDownloadLine size={18} className="text-[var(--primary)] group-hover:scale-110 transition-transform" />
-      <span>Salvar PDF</span>
-    </button>
+ <button
+  onClick={gerarPDF}
+  className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-slate-900 bg-lime-500 border border-lime-500 hover:bg-lime-400 rounded-[var(--radius)] transition-all shadow-sm group"
+>
+  <RiFileDownloadLine size={18} className="text-slate-900 group-hover:scale-110 transition-transform" />
+  <span>Salvar PDF</span>
+</button>
   );
 };
 
