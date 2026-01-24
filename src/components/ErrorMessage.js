@@ -3,14 +3,14 @@ import React from "react";
 
 const ErrorMessage = ({ message }) => {
   return (
-    <div className="flex justify-center gap-4 items-center bg-slate-800 border border-red-400/30 text-slate-200 p-2 rounded-lg text-center">
-      <div className="font-semibold text-center text-red-400">
+    <div className="flex justify-center gap-4 items-center bg-red-500/10 border border-red-500/20 text-[var(--text-main)] p-4 rounded-[var(--radius)] text-center backdrop-blur-sm">
+      <div className="font-semibold text-center text-red-500">
         <RiSpam2Line size={30}/>
       </div>
 
-      <div>
-        <p className="font-semibold text-red-400">Ocorreu um erro</p>
-        <p className="text-slate-300">{message}</p>
+      <div className="text-left">
+        <p className="font-bold text-red-500 text-sm uppercase tracking-wide">Ocorreu um erro</p>
+        <p className="text-[var(--text-muted)] text-sm">{message}</p>
       </div>
     </div>
   );

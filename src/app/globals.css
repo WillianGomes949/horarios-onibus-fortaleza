@@ -1,2 +1,68 @@
 @import "tailwindcss";
 
+body {
+  background-color: var(--bg-dark);
+  color: white;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+}
+
+/* PERMITIR seleção apenas onde importa (ex: telefone e email) */
+.allow-copy {
+  -webkit-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
+@theme {
+  /* Paleta Dark Premium */
+  --primary: #ff6b00;
+  --primary-hover: #ff8b33;
+  --primary-glow: rgba(255, 107, 0, 0.4);
+
+  --bg-dark: #0f0f11;
+  --bg-card: rgba(30, 30, 35, 0.7);
+  --bg-input: rgba(0, 0, 0, 0.3);
+
+  --text-main: #ffffff;
+  --text-muted: #a0a0a5;
+
+  --border: rgba(255, 255, 255, 0.08);
+  --border-focus: var(--primary);
+
+  --radius: 16px;
+  --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* Chrome, Edge and Safari */
+*::-webkit-scrollbar {
+  height: 10px;
+  width: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  border-radius: 5px;
+  background-color: #101828;
+}
+
+*::-webkit-scrollbar-track:hover {
+  background-color: #101828;
+}
+
+*::-webkit-scrollbar-track:active {
+  background-color: #101828;
+}
+
+*::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background-color: #f20519;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: #7ccf00;
+}
+
+*::-webkit-scrollbar-thumb:active {
+  background-color: #f20519;
+}

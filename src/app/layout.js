@@ -24,17 +24,17 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="pt-BR">
       <head>
         <link rel="apple-touch-icon" href="/icons/icon-152x152.png" />
         <meta
           name="msapplication-TileImage"
           content="/icons/icon-144x144.png"
         />
-        <meta name="msapplication-TileColor" content="#06b6d4" />
+        <meta name="msapplication-TileColor" content="#ff6b00" />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased text-[var(--text-main)]`}
       >
         {children}
       </body>

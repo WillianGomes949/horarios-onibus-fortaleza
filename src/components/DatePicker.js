@@ -6,7 +6,7 @@ const DatePicker = ({ data, onDataChange }) => {
     <div className="w-full">
       <label
         htmlFor="data-consulta"
-        className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1.5 ml-1 flex items-center gap-1"
+        className="text-xs font-bold text-[var(--text-muted)] uppercase tracking-wider mb-2 ml-1 flex items-center gap-1"
       >
         <RiCalendarEventLine size={14} />
         Para quando?
@@ -16,7 +16,8 @@ const DatePicker = ({ data, onDataChange }) => {
         type="date"
         value={data}
         onChange={(e) => onDataChange(e.target.value)}
-        className="w-full h-14 px-4 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white rounded-xl border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-lime-500 focus:border-transparent transition-all duration-200 text-lg shadow-sm cursor-pointer"
+        className="w-full h-14 px-4 bg-[var(--bg-input)] text-[var(--text-main)] rounded-[var(--radius)] border border-[var(--border)] focus:outline-none focus:border-[var(--primary)] transition-all duration-300 text-lg shadow-sm cursor-pointer placeholder-[var(--text-muted)] color-scheme-dark"
+        style={{ colorScheme: "dark" }} // Força o ícone do calendário a ficar claro
       />
     </div>
   );

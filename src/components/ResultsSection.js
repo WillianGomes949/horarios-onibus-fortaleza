@@ -33,9 +33,8 @@ const ResultsSection = ({ dados, loading, error, linhaSelecionada }) => {
       {dados && !loading && (
         <>
             {dados.length > 0 ? (
-                <div className="animate-fade-in flex flex-col gap-6">
+                <div className="animate-fade-in flex flex-col gap-6 mt-6">
                     <HorariosTable dados={dados} linhaSelecionada={linhaSelecionada} />
-                    <LineHeader linhaSelecionada={linhaSelecionada} dados={dados} />
                 </div>
             ) : (
                 <EmptyState type="noResults" />

@@ -73,9 +73,9 @@ const SearchForm = ({
       <button
         type="submit"
         disabled={loading || !linha}
-        className="w-full h-14 flex items-center justify-center gap-2 bg-lime-600 hover:bg-lime-700 active:bg-lime-800 text-white font-bold text-lg rounded-xl
-             disabled:bg-slate-300 disabled:text-slate-500 dark:disabled:bg-slate-700 dark:disabled:text-slate-500
-             disabled:cursor-not-allowed transition-all duration-200 transform active:scale-[0.98] shadow-lg shadow-lime-600/20"
+        className="w-full h-14 flex items-center justify-center gap-2 bg-[var(--primary)] hover:bg-[var(--primary-hover)] text-white font-bold text-lg rounded-[var(--radius)]
+             disabled:bg-[var(--bg-input)] disabled:text-[var(--text-muted)]
+             disabled:cursor-not-allowed transition-all duration-200 transform active:scale-[0.98] shadow-lg shadow-[var(--primary)]/20"
       >
         {loading ? (
           <div className="flex items-center gap-2">

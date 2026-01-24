@@ -52,8 +52,9 @@ const Tempo = ({ latitude = -3.7172, longitude = -38.5431 }) => {
   }, [latitude, longitude]);
 
   const getUvColor = (uv) => {
-      if (uv <= 2) return "bg-lime-400 text-lime-900"; // Baixo
-      if (uv <= 5) return "bg-yellow-400 text-yellow-900"; // Moderado
+      // Cores de alerta mantidas, mas garantindo contraste
+      if (uv <= 2) return "bg-green-500 text-white"; // Baixo
+      if (uv <= 5) return "bg-yellow-500 text-black"; // Moderado
       if (uv <= 7) return "bg-orange-500 text-white"; // Alto
       return "bg-red-500 text-white"; // Muito Alto/Extremo
   };
@@ -63,8 +64,8 @@ const Tempo = ({ latitude = -3.7172, longitude = -38.5431 }) => {
   return (
     <>
       {tempoData.precipitation > 0 && (
-        <div className="flex items-center gap-1 text-xs font-medium" title="Chance de Chuva">
-           <RiUmbrellaLine size={14} className="opacity-70"/>
+        <div className="flex items-center gap-1 text-xs font-medium text-[var(--text-muted)]" title="Chance de Chuva">
+           <RiUmbrellaLine size={14} className="text-[var(--primary)]"/>
            {tempoData.precipitation}%
         </div>
       )}

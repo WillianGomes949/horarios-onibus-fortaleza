@@ -13,14 +13,18 @@ const DownloadPDF = ({ dados, linhaSelecionada, data }) => {
       ? new Date(data).toLocaleDateString("pt-BR")
       : dataAtual;
 
+    // Cores do tema (Hardcoded para o PDF pois ele não lê CSS Var)
+    const colorPrimary = [255, 107, 0]; // #ff6b00
+    const colorDark = [15, 15, 17];     // #0f0f11
+
     // Cabeçalho
     doc.setFontSize(16);
-    doc.setTextColor(101, 163, 13); // lime-600
+    doc.setTextColor(colorPrimary[0], colorPrimary[1], colorPrimary[2]);
     doc.text("Horários de Ônibus", 105, 15, { align: "center" });
 
     // Informações
     doc.setFontSize(10);
-    doc.setTextColor(0, 0, 0);
+    doc.setTextColor(0, 0, 0); // Preto para o texto base do PDF (melhor impressão)
     doc.text(
       `Linha: ${linhaSelecionada.numero} - ${linhaSelecionada.nome}`,
       14,
@@ -40,7 +44,7 @@ const DownloadPDF = ({ dados, linhaSelecionada, data }) => {
 
       // Título do posto
       doc.setFontSize(12);
-      doc.setTextColor(101, 163, 13);
+      doc.setTextColor(colorPrimary[0], colorPrimary[1], colorPrimary[2]);
       doc.text(posto.postoControle, 14, yPosition);
       yPosition += 8;
 
@@ -56,12 +60,12 @@ const DownloadPDF = ({ dados, linhaSelecionada, data }) => {
         head: [["Horário", "Tabela", "Acessível"]],
         body: tableData,
         headStyles: {
-          fillColor: [30, 41, 59],
+          fillColor: colorPrimary, // Fundo Laranja
           textColor: 255,
           fontStyle: "bold",
         },
         bodyStyles: {
-          textColor: [51, 65, 85],
+          textColor: [50, 50, 50],
         },
         styles: {
           fontSize: 12,
@@ -86,9 +90,9 @@ const DownloadPDF = ({ dados, linhaSelecionada, data }) => {
   return (
     <button
       onClick={gerarPDF}
-      className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-slate-600 dark:text-slate-300 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-lg transition-all shadow-sm"
+      className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-[var(--text-muted)] bg-[var(--bg-input)] border border-[var(--border)] hover:text-[var(--text-main)] hover:border-[var(--primary)] rounded-[var(--radius)] transition-all shadow-sm group"
     >
-      <RiFileDownloadLine size={18} className="text-lime-600" />
+      <RiFileDownloadLine size={18} className="text-[var(--primary)] group-hover:scale-110 transition-transform" />
       <span>Salvar PDF</span>
     </button>
   );

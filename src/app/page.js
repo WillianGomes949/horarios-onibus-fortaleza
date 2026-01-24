@@ -86,20 +86,27 @@ export default function BusScheduleApp() {
   };
 
   return (
-    <main className="flex justify-center items-center min-h-screen bg-slate-50 dark:bg-slate-900 text-slate-700 dark:text-slate-300 font-sans p-2">
+    // O background global já está definido no body do globals.css
+    <main className="flex justify-center items-center min-h-screen font-sans p-2">
       <NetworkStatus />
-      <div className="w-full max-w-4xl  bg-white dark:bg-slate-800 rounded-2xl shadow-2xl p-2 lg:p-8 space-y-6">
+      
+      {/* Card Principal com o tema Dark Premium */}
+      <div className="w-full max-w-4xl bg-[var(--bg-card)] border border-[var(--border)] backdrop-blur-sm rounded-[var(--radius)] shadow-2xl p-4 lg:p-8 space-y-6">
+        
         {/* Cabeçalho */}
         <div className="text-center">
-          <h1 className="text-xl flex gap-2 md:text-3xl font-bold text-lime-600 dark:text-lime-400 items-center justify-center">
+          <h1 className="text-xl md:text-3xl font-bold text-[var(--primary)] flex gap-2 items-center justify-center">
             <RiBusFill size={40} />
             Horários de Ônibus Fortaleza
           </h1>
-          <p className=" text-slate-500 dark:text-slate-400 mt-2">
+          <p className="text-[var(--text-muted)] mt-2">
             Veja os horários atualizados das linhas de ônibus.
           </p>
         </div>
+
         {/* Formulário de Busca */}
+        {/* Nota: Você precisará garantir que os inputs dentro de SearchForm 
+            usem bg-[var(--bg-input)] e text-[var(--text-main)] para ficarem visíveis */}
         <SearchForm
           linha={linha}
           data={data}
@@ -111,6 +118,7 @@ export default function BusScheduleApp() {
           onBuscarHorarios={handleBuscarHorarios}
           onSelecionarLinha={handleSelecionarLinha}
         />
+
         <div className="flex justify-between items-center">
           <DownloadPDF
             dados={dados}
@@ -118,6 +126,7 @@ export default function BusScheduleApp() {
             data={data}
           />
         </div>
+
         {/* Seção de Resultados */}
         <ResultsSection
           dados={dados}
@@ -125,42 +134,20 @@ export default function BusScheduleApp() {
           error={error}
           linhaSelecionada={linhaSelecionada}
         />
+
         <section>
           <MarqueeComponent/>
         </section>
+
         {/* Clima */}
         <section>
           <Clima />
         </section>
-        <div className="text-center text-sm text-slate-500 dark:text-slate-400 mt-4">
+
+        <div className="text-center text-sm text-[var(--text-muted)] mt-4">
           Willian Gomes © 2025
         </div>
       </div>
-
-      <style jsx global>{`
-        .custom-scrollbar::-webkit-scrollbar {
-          width: 8px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-track {
-          background: transparent; /* slate-50 */
-        }
-        .dark .custom-scrollbar::-webkit-scrollbar-track {
-          background: none; /* slate-800 */
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-          background: #cbd5e1; /* slate-300 */
-          border-radius: 4px;
-        }
-        .dark .custom-scrollbar::-webkit-scrollbar-thumb {
-          background: #475569; /* slate-600 */
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-          background: #94a3b8; /* slate-400 */
-        }
-        .dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-          background: #64748b; /* slate-500 */
-        }
-      `}</style>
     </main>
   );
 }
