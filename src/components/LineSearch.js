@@ -1,5 +1,5 @@
 import { RiSearchLine, RiLoader5Fill, RiBusLine } from "@remixicon/react";
-import React from "react";
+import React, { useRef } from "react";
 
 const LineSearch = ({
   linha,
@@ -11,6 +11,19 @@ const LineSearch = ({
   onFocus,
   onBlur,
 }) => {
+  // 1. Cria a referência para manipular o input diretamente
+  const inputRef = useRef(null);
+
+  const handleSelection = (linhaItem) => {
+    // Chama a função original de seleção
+    onSelecionarLinha(linhaItem);
+    
+    // Remove o foco do input, fechando o teclado virtual em mobile
+    if (inputRef.current) {
+      inputRef.current.blur();
+    }
+  };
+
   return (
     <div className="relative w-full">
       <label
@@ -18,11 +31,12 @@ const LineSearch = ({
         className="text-xs font-bold text-[var(--text-muted)] tracking-wider mb-2 ml-1 flex items-center gap-1"
       >
         <RiBusLine size={14} />
-        Escolha sua linha?
+        Escolha sua linha
       </label>
       
       <div className="relative">
         <input
+          ref={inputRef} // 2. Conecta a referência ao elemento DOM
           id="linha-onibus"
           type="text"
           value={linha}
@@ -50,7 +64,8 @@ const LineSearch = ({
             <div
               key={linhaItem.numero}
               className="p-4 hover:bg-[var(--text-main)]/5 cursor-pointer border-b border-[var(--border)] last:border-b-0 transition-colors duration-150 active:bg-[var(--text-main)]/10"
-              onMouseDown={() => onSelecionarLinha(linhaItem)} 
+              // 3. Usa o handler que seleciona E remove o foco
+              onMouseDown={() => handleSelection(linhaItem)} 
             >
               <div className="flex items-center gap-3">
                 <span className="bg-[var(--primary)]/20 text-[var(--primary)] font-bold px-2 py-1 rounded text-sm min-w-14 text-center border border-[var(--primary)]/20">
