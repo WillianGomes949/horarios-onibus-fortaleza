@@ -63,7 +63,7 @@ export default function BusScheduleApp() {
       } else {
         // Encontra a linha selecionada para mostrar o nome
         const linhaEncontrada = linhas.find(
-          (l) => l.numero.toString() === linhaNumero
+          (l) => l.numero.toString() === linhaNumero || parseInt(l.numero) === parseInt(linhaNumero)
         );
         setLinhaSelecionada(linhaEncontrada);
       }
@@ -85,14 +85,16 @@ export default function BusScheduleApp() {
     setLinhaSelecionada(linhaItem);
   };
 
+  const currentYear = new Date().getFullYear();
+
   return (
     // O background global já está definido no body do globals.css
     <main className="flex justify-center items-center min-h-screen font-sans p-2">
       <NetworkStatus />
-      
+
       {/* Card Principal com o tema Dark Premium */}
       <div className="w-full max-w-4xl bg-[var(--bg-card)] border border-[var(--border)] backdrop-blur-sm rounded-[var(--radius)] shadow-2xl p-4 lg:p-8 space-y-6">
-        
+
         {/* Cabeçalho */}
         <div className="text-center">
           <h1 className="text-xl md:text-3xl font-bold text-[var(--primary)] flex gap-2 items-center justify-center">
@@ -135,17 +137,17 @@ export default function BusScheduleApp() {
           linhaSelecionada={linhaSelecionada}
         />
 
-        <section>
-          <MarqueeComponent/>
-        </section>
-
         {/* Clima */}
         <section>
           <Clima />
         </section>
 
+        <section>
+          <MarqueeComponent />
+        </section>
+
         <div className="text-center text-sm text-[var(--text-muted)] mt-4">
-          Willian Gomes © 2025
+          <a href="https://www.williangomesdev.com/" target="_blank">Willian Gomes</a> &copy; {currentYear}
         </div>
       </div>
     </main>
