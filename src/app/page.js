@@ -91,7 +91,7 @@ export default function BusScheduleApp() {
 
   return (
     <main className="flex justify-center items-center min-h-screen font-sans p-2 relative">
-      
+
       {/* Background com Next/Image */}
       <div className="fixed inset-0 -z-10">
         <Image
@@ -112,12 +112,16 @@ export default function BusScheduleApp() {
       <div className="w-full max-w-4xl bg-[var(--bg-card)] border border-[var(--border)]  rounded-[var(--radius)] shadow-2xl p-4 lg:p-8 space-y-6">
 
         {/* Cabeçalho */}
-        <div className="text-center">
-          <h1 className="text-xl md:text-3xl font-bold text-[var(--primary)] flex gap-2 items-center justify-center">
-            <RiBusFill size={40} />
-            Horários de Ônibus Fortaleza
+        <div className="text-center mb-8">
+          <h1 className="text-xl md:text-3xl font-bold text-[var(--text-main)] flex gap-2 items-center justify-center">
+            <div className="flex items-center justify-center gap-4">
+              <span className="bg-[var(--bg-input)] p-4 rounded-full border border-[var(--border)]">
+                <RiBusFill size={40} className="text-[var(--primary)]" />
+              </span>
+              <span>Horários de Ônibus Fortaleza</span>
+            </div>
           </h1>
-          <p className="text-[var(--text-muted)] mt-2">
+          <p className="text-[var(--text-muted)]">
             Veja os horários atualizados das linhas de ônibus.
           </p>
         </div>

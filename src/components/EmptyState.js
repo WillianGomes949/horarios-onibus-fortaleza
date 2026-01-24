@@ -1,5 +1,5 @@
 import React from "react";
-import { RiBusLine, RiSearchEyeLine } from "@remixicon/react";
+import { RiBusLine, RiSearchEyeLine, RiTimeZoneFill } from "@remixicon/react";
 
 const EmptyState = ({ type = "initial" }) => {
   const isInitial = type === "initial";
@@ -8,7 +8,7 @@ const EmptyState = ({ type = "initial" }) => {
     <div className="flex flex-col items-center justify-center p-8 text-center min-h-[200px]">
       <div className="bg-[var(--bg-input)] p-4 rounded-full mb-4 border border-[var(--border)]">
         {isInitial ? (
-            <RiBusLine size={40} className="text-[var(--primary)]" />
+            <RiTimeZoneFill size={40} className="text-[var(--primary)]" />
         ) : (
             <RiSearchEyeLine size={40} className="text-[var(--primary)]" />
         )}

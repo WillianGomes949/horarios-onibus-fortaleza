@@ -48,10 +48,12 @@ const LineHeader = ({ linhaSelecionada, dados }) => {
   if (horariosExtremos.length === 0) return null;
 
   return (
-    <div className="bg-[var(--bg-card)] rounded-[var(--radius)] p-4 shadow-sm border border-[var(--border)] mt-6">
-      <div className="flex items-center gap-2 mb-4 text-[var(--primary)]">
-        <RiMapPinTimeLine size={24} />
-        <h2 className="text-lg font-bold">Funcionamento da Linha</h2>
+    <section>
+      <div className="flex items-center gap-2 py-6">
+        <RiMapPinTimeLine className="text-[var(--text-muted)]" size={24} />
+        <h3 className="text-lg font-bold text-[var(--text-main)]">
+          Funcionamento da Linha
+        </h3>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -63,7 +65,7 @@ const LineHeader = ({ linhaSelecionada, dados }) => {
             <h3 className="font-semibold text-[var(--text-main)] text-sm mb-3 uppercase tracking-wide truncate" title={extremo.posto}>
               {extremo.posto}
             </h3>
-            
+
             <div className="flex justify-between items-center px-2">
               <div className="text-center">
                 <span className="block text-xs text-[var(--text-muted)] uppercase font-medium mb-1">Início</span>
@@ -71,7 +73,7 @@ const LineHeader = ({ linhaSelecionada, dados }) => {
                   {extremo.primeiroHorario}
                 </span>
               </div>
-              
+
               <div className="h-8 w-px bg-[var(--border)]"></div>
 
               <div className="text-center">
@@ -84,7 +86,7 @@ const LineHeader = ({ linhaSelecionada, dados }) => {
           </div>
         ))}
       </div>
-    </div>
+    </section>
   );
 };
 

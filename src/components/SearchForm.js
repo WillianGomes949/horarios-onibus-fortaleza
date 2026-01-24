@@ -50,10 +50,10 @@ const SearchForm = ({
 
   return (
     <form onSubmit={handleSubmit} className="relative z-10">
-      <div className="flex flex-col md:flex-row gap-4 mb-4">
+      <div className="flex flex-col md:flex-row gap-4 mb-4 items-end">
         {/* Wrapper para garantir que o LineSearch ocupe espaço correto */}
         <div className="w-full md:flex-1">
-           <LineSearch
+          <LineSearch
             linha={linha}
             linhasFiltradas={linhasFiltradas}
             mostrarSugestoes={mostrarSugestoes}
@@ -64,22 +64,43 @@ const SearchForm = ({
             onBlur={() => setTimeout(() => setMostrarSugestoes(false), 200)}
           />
         </div>
-        
+
         <div className="w-full md:w-auto md:min-w-[180px]">
           <DatePicker data={data} onDataChange={onDataChange} />
         </div>
+        <div className="w-full md:w-auto">
+          <button
+            type="submit"
+            disabled={loading || !linha}
+            className="w-full md:w-auto p-4 h-14 flex items-center justify-center gap-2 bg-[var(--primary)] hover:bg-[var(--primary-hover)] text-[var(--text-main)] font-bold text-lg rounded-[var(--radius)]
+             disabled:bg-[var(--bg-input)] disabled:text-[var(--text-muted)]
+             disabled:cursor-not-allowed transition-all duration-200 transform active:scale-[0.98] shadow-lg shadow-[var(--primary)]/20"
+          >
+            {loading ? (
+              <div className="flex items-center gap-2">
+                <span className="w-5 h-5 border-2 border-[var(--text-main)]/30 border-t-[var(--text-main)] rounded-full animate-spin"></span>
+                Buscando...
+              </div>
+            ) : (
+              <>
+                <RiSearchLine size={22} />
+                Buscar
+              </>
+            )}
+          </button>
+        </div>
       </div>
 
-      <button
+      {/* <button
         type="submit"
         disabled={loading || !linha}
-        className="w-full h-14 flex items-center justify-center gap-2 bg-[var(--primary)] hover:bg-[var(--primary-hover)] text-white font-bold text-lg rounded-[var(--radius)]
+        className="w-full h-14 flex items-center justify-center gap-2 bg-[var(--primary)] hover:bg-[var(--primary-hover)] text-[var(--text-main)] font-bold text-lg rounded-[var(--radius)]
              disabled:bg-[var(--bg-input)] disabled:text-[var(--text-muted)]
              disabled:cursor-not-allowed transition-all duration-200 transform active:scale-[0.98] shadow-lg shadow-[var(--primary)]/20"
       >
         {loading ? (
           <div className="flex items-center gap-2">
-            <span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></span>
+            <span className="w-5 h-5 border-2 border-[var(--text-main)]/30 border-t-[var(--text-main)] rounded-full animate-spin"></span>
             Buscando...
           </div>
         ) : (
@@ -88,7 +109,7 @@ const SearchForm = ({
             Buscar Horários
           </>
         )}
-      </button>
+      </button> */}
     </form>
   );
 };

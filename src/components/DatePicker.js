@@ -6,17 +6,17 @@ const DatePicker = ({ data, onDataChange }) => {
     <div className="w-full">
       <label
         htmlFor="data-consulta"
-        className="text-xs font-bold text-[var(--text-muted)] uppercase tracking-wider mb-2 ml-1 flex items-center gap-1"
+        className="text-xs font-bold text-[var(--text-muted)] tracking-wider mb-2 ml-1 flex items-center gap-1"
       >
         <RiCalendarEventLine size={14} />
-        Para quando?
+        Escolha a data...
       </label>
       <input
         id="data-consulta"
         type="date"
         value={data}
         onChange={(e) => onDataChange(e.target.value)}
-        className="w-full h-14 px-4 bg-[var(--bg-input)] text-[var(--text-main)] rounded-[var(--radius)] border border-[var(--border)] focus:outline-none focus:border-[var(--primary)] transition-all duration-300 text-lg shadow-sm cursor-pointer placeholder-[var(--text-muted)] color-scheme-dark"
+        className="w-full h-14 px-4 bg-[var(--bg-input)] text-[var(--text-muted)] rounded-[var(--radius)] border border-[var(--border)] focus:outline-none focus:border-[var(--primary)] transition-all duration-300 text-lg shadow-sm cursor-pointer placeholder-[var(--text-muted)] color-scheme-dark"
         style={{ colorScheme: "dark" }} // Força o ícone do calendário a ficar claro
       />
     </div>

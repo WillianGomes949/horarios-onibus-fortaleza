@@ -13,9 +13,8 @@ const DownloadPDF = ({ dados, linhaSelecionada, data }) => {
       ? new Date(data).toLocaleDateString("pt-BR")
       : dataAtual;
 
-    // Cores do tema (Hardcoded para o PDF pois ele não lê CSS Var)
+    // Cores do tema
     const colorPrimary = [255, 107, 0]; // #ff6b00
-    const colorDark = [15, 15, 17];     // #0f0f11
 
     // Cabeçalho
     doc.setFontSize(16);
@@ -24,7 +23,7 @@ const DownloadPDF = ({ dados, linhaSelecionada, data }) => {
 
     // Informações
     doc.setFontSize(10);
-    doc.setTextColor(0, 0, 0); // Preto para o texto base do PDF (melhor impressão)
+    doc.setTextColor(0, 0, 0); // Preto para melhor contraste na impressão
     doc.text(
       `Linha: ${linhaSelecionada.numero} - ${linhaSelecionada.nome}`,
       14,
@@ -34,7 +33,7 @@ const DownloadPDF = ({ dados, linhaSelecionada, data }) => {
 
     let yPosition = 45;
 
-    // Para cada posto
+    // Para cada posto de controle
     dados.forEach((posto) => {
       // Verifica se precisa de nova página
       if (yPosition > 250) {
@@ -46,30 +45,53 @@ const DownloadPDF = ({ dados, linhaSelecionada, data }) => {
       doc.setFontSize(12);
       doc.setTextColor(colorPrimary[0], colorPrimary[1], colorPrimary[2]);
       doc.text(posto.postoControle, 14, yPosition);
-      yPosition += 8;
+      yPosition += 5;
 
-      // Dados da tabela
-      const tableData = posto.horarios.map((horario) => [
-        horario.horario,
-        horario.tabela,
-        horario.acessivel,
-      ]);
+      // 1. Transformar a lista linear de horários em uma Matriz (Linhas x Colunas)
+      const times = posto.horarios.map((h) => h.horario);
+      const columns = 5; // 5 horários por linha
+      const rows = [];
+      
+      for (let i = 0; i < times.length; i += columns) {
+        const row = times.slice(i, i + columns);
+        // Preencher células vazias se a última linha não estiver completa
+        while (row.length < columns) row.push(""); 
+        rows.push(row);
+      }
 
+      // 2. Gerar a tabela simulando botões
       autoTable(doc, {
         startY: yPosition,
-        head: [["Horário", "Tabela", "Acessível"]],
-        body: tableData,
-        headStyles: {
-          fillColor: colorPrimary, // Fundo Laranja
-          textColor: 255,
-          fontStyle: "bold",
-        },
-        bodyStyles: {
-          textColor: [50, 50, 50],
-        },
+        body: rows,
+        theme: 'plain', // Sem bordas padrão da tabela
         styles: {
-          fontSize: 12,
+          fontSize: 11,
           cellPadding: 3,
+          halign: 'center',
+          valign: 'middle',
+          minCellHeight: 12,
+        },
+        // Hook para desenhar as "pílulas" manualmente
+        didDrawCell: (data) => {
+          if (data.section === 'body' && data.cell.raw !== "") {
+            const { cell } = data;
+            
+            // Configurações do desenho
+            doc.setDrawColor(colorPrimary[0], colorPrimary[1], colorPrimary[2]);
+            doc.setLineWidth(0.3);
+            
+            // Desenha retângulo com bordas arredondadas (x, y, w, h, rx, ry, style)
+            // style 'S' = Stroke (apenas borda)
+            doc.roundedRect(
+              cell.x + 1, 
+              cell.y + 1, 
+              cell.width - 2, 
+              cell.height - 2, 
+              3, 
+              3, 
+              'S' 
+            );
+          }
         },
         margin: { left: 14, right: 14 },
       });
@@ -88,13 +110,13 @@ const DownloadPDF = ({ dados, linhaSelecionada, data }) => {
   if (!dados || dados.length === 0) return null;
 
   return (
- <button
-  onClick={gerarPDF}
-  className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-slate-900 bg-lime-500 border border-lime-500 hover:bg-lime-400 rounded-[var(--radius)] transition-all shadow-sm group"
->
-  <RiFileDownloadLine size={18} className="text-slate-900 group-hover:scale-110 transition-transform" />
-  <span>Salvar PDF</span>
-</button>
+    <button
+      onClick={gerarPDF}
+      className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-gray-50 border-none bg-red-500 border hover:bg-lime-400 rounded-[var(--radius)] transition-all duration-400 shadow-sm group cursor-pointer hover:text-gray-700"
+    >
+      <RiFileDownloadLine size={18}/>
+      <span>Salvar PDF</span>
+    </button>
   );
 };
 

@@ -2,7 +2,7 @@
 
 body {
   background-color: var(--bg-dark);
-  color: white;
+  color: var(--text-main);
   -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE 10 and IE 11 */
   user-select: none; /* Standard syntax */
@@ -25,7 +25,7 @@ body {
   --bg-card: rgba(30, 30, 35, 0.7);
   --bg-input: rgba(0, 0, 0, 0.3);
 
-  --text-main: #ffffff;
+  --text-main: #f2f2f2;
   --text-muted: #a0a0a5;
 
   --border: rgba(255, 255, 255, 0.08);

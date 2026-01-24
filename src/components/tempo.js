@@ -53,10 +53,10 @@ const Tempo = ({ latitude = -3.7172, longitude = -38.5431 }) => {
 
   const getUvColor = (uv) => {
       // Cores de alerta mantidas, mas garantindo contraste
-      if (uv <= 2) return "bg-green-500 text-white"; // Baixo
+      if (uv <= 2) return "bg-green-500 text-[var(--text-main)]"; // Baixo
       if (uv <= 5) return "bg-yellow-500 text-black"; // Moderado
-      if (uv <= 7) return "bg-orange-500 text-white"; // Alto
-      return "bg-red-500 text-white"; // Muito Alto/Extremo
+      if (uv <= 7) return "bg-orange-500 text-[var(--text-main)]"; // Alto
+      return "bg-red-500 text-[var(--text-main)]"; // Muito Alto/Extremo
   };
 
   if (loading || error || !tempoData) return null;

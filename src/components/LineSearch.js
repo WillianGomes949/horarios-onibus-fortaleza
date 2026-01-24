@@ -15,10 +15,10 @@ const LineSearch = ({
     <div className="relative w-full">
       <label
         htmlFor="linha-onibus"
-        className="text-xs font-bold text-[var(--text-muted)] uppercase tracking-wider mb-2 ml-1 flex items-center gap-1"
+        className="text-xs font-bold text-[var(--text-muted)] tracking-wider mb-2 ml-1 flex items-center gap-1"
       >
         <RiBusLine size={14} />
-        Qual sua linha?
+        Escolha sua linha?
       </label>
       
       <div className="relative">
@@ -31,7 +31,7 @@ const LineSearch = ({
           onBlur={onBlur}
           disabled={loadingLinhas}
           placeholder={loadingLinhas ? "Carregando linhas..." : "Ex: 026, Antônio Bezerra..."}
-          className="w-full h-14 pl-4 pr-10 bg-[var(--bg-input)] text-[var(--text-main)] rounded-[var(--radius)] border border-[var(--border)] focus:outline-none focus:border-[var(--primary)] transition-all duration-300 text-lg shadow-sm placeholder-[var(--text-muted)]"
+          className="w-full h-14 pl-4 pr-10 bg-[var(--bg-input)] text-[var(--text-main)] rounded-[var(--radius)] border border-[var(--border)] focus:outline-none focus:border-[var(--primary)] transition-all duration-300 text-lg shadow-sm placeholder-[var(--text-muted)]/50"
         />
         
         <div className="absolute right-4 top-1/2 -translate-y-1/2 text-[var(--text-muted)]">
@@ -49,7 +49,7 @@ const LineSearch = ({
           {linhasFiltradas.map((linhaItem) => (
             <div
               key={linhaItem.numero}
-              className="p-4 hover:bg-white/5 cursor-pointer border-b border-[var(--border)] last:border-b-0 transition-colors duration-150 active:bg-white/10"
+              className="p-4 hover:bg-[var(--text-main)]/5 cursor-pointer border-b border-[var(--border)] last:border-b-0 transition-colors duration-150 active:bg-[var(--text-main)]/10"
               onMouseDown={() => onSelecionarLinha(linhaItem)} 
             >
               <div className="flex items-center gap-3">

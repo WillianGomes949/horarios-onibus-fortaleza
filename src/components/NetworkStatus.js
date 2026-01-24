@@ -28,7 +28,7 @@ const NetworkStatus = () => {
 
   return (
     <div className="fixed bottom-4 left-4 right-4 z-50 animate-bounce">
-      <div className="bg-red-600/90 backdrop-blur-md text-white px-4 py-3 rounded-[var(--radius)] shadow-lg flex items-center justify-center gap-3 border border-red-500/50">
+      <div className="bg-red-600/90 backdrop-blur-md text-[var(--text-main)] px-4 py-3 rounded-[var(--radius)] shadow-lg flex items-center justify-center gap-3 border border-red-500/50">
         <RiWifiOffLine size={20} />
         <span className="font-medium text-sm">Você está offline. Verifique sua conexão.</span>
       </div>
