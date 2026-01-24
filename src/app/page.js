@@ -109,7 +109,7 @@ export default function BusScheduleApp() {
       <NetworkStatus />
 
       {/* Card Principal com o tema Dark Premium */}
-      <div className="w-full max-w-4xl bg-[var(--bg-card)] border border-[var(--border)]  rounded-[var(--radius)] shadow-2xl p-4 lg:p-8 space-y-6">
+      <div className="w-full max-w-4xl bg-[var(--bg-card)]/60 border border-[var(--border)]  rounded-[var(--radius)] shadow-2xl p-4 lg:p-8 space-y-6 backdrop-blur-xs">
 
         {/* Cabeçalho */}
         <div className="text-center mb-8">

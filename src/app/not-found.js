@@ -1,12 +1,27 @@
 import Link from "next/link";
 import { RiBusWifiLine, RiHome4Line, RiSearchLine } from "@remixicon/react";
+import Image from "next/image";
 
 export default function NotFound() {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-4 text-center">
+
+      {/* Background com Next/Image */}
+            <div className="fixed inset-0 -z-10">
+              <Image
+                src="/images/fortalezaMap.webp"
+                alt="Mapa de Fortaleza Background"
+                fill
+                priority
+                quality={100}
+                className="object-cover opacity-60"
+              />
+              {/* Overlay Escuro para legibilidade */}
+              <div className="absolute inset-0 bg-black/80" />
+            </div>
       
       {/* Card Centralizado com efeito Glass */}
-      <div className="w-full max-w-lg bg-[var(--bg-card)] border border-[var(--border)] backdrop-blur-md rounded-[var(--radius)] p-8 shadow-2xl animate-fade-in">
+      <div>
         
         {/* Ícone de Alerta Animado */}
         <div className="relative mb-8 inline-block">
