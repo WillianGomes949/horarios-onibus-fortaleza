@@ -28,6 +28,7 @@ export default function RootLayout({ children }) {
           name="msapplication-TileImage"
           content="/icons/icon-144x144.png"
         />
+        <link rel="manifest" href="/manifest.json" />
         <meta name="msapplication-TileColor" content="#ff6b00" />
       </head>
       <body
