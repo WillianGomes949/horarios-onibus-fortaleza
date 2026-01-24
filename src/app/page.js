@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Image from "next/image"; // Importando o componente Image
 import { buscarLinhas, buscarHorarios } from "@/services/api";
 import { RiBusFill } from "@remixicon/react";
 import ResultsSection from "@/components/ResultsSection";
@@ -62,6 +63,7 @@ export default function BusScheduleApp() {
         setLinhaSelecionada(linhaInfo);
       } else {
         // Encontra a linha selecionada para mostrar o nome
+        // Correção para aceitar "026" e "26" na busca
         const linhaEncontrada = linhas.find(
           (l) => l.numero.toString() === linhaNumero || parseInt(l.numero) === parseInt(linhaNumero)
         );
@@ -88,12 +90,26 @@ export default function BusScheduleApp() {
   const currentYear = new Date().getFullYear();
 
   return (
-    // O background global já está definido no body do globals.css
-    <main className="flex justify-center items-center min-h-screen font-sans p-2">
+    <main className="flex justify-center items-center min-h-screen font-sans p-2 relative">
+      
+      {/* Background com Next/Image */}
+      <div className="fixed inset-0 -z-10">
+        <Image
+          src="/images/fortalezaMap.webp"
+          alt="Mapa de Fortaleza Background"
+          fill
+          priority
+          quality={100}
+          className="object-cover opacity-60"
+        />
+        {/* Overlay Escuro para legibilidade */}
+        <div className="absolute inset-0 bg-black/80" />
+      </div>
+
       <NetworkStatus />
 
       {/* Card Principal com o tema Dark Premium */}
-      <div className="w-full max-w-4xl bg-[var(--bg-card)] border border-[var(--border)] backdrop-blur-sm rounded-[var(--radius)] shadow-2xl p-4 lg:p-8 space-y-6">
+      <div className="w-full max-w-4xl bg-[var(--bg-card)] border border-[var(--border)]  rounded-[var(--radius)] shadow-2xl p-4 lg:p-8 space-y-6">
 
         {/* Cabeçalho */}
         <div className="text-center">
@@ -107,8 +123,6 @@ export default function BusScheduleApp() {
         </div>
 
         {/* Formulário de Busca */}
-        {/* Nota: Você precisará garantir que os inputs dentro de SearchForm 
-            usem bg-[var(--bg-input)] e text-[var(--text-main)] para ficarem visíveis */}
         <SearchForm
           linha={linha}
           data={data}
@@ -147,7 +161,7 @@ export default function BusScheduleApp() {
         </section>
 
         <div className="text-center text-sm text-[var(--text-muted)] mt-4">
-          <a href="https://www.williangomesdev.com/" target="_blank">Willian Gomes</a> &copy; {currentYear}
+          <a href="https://www.williangomesdev.com/" target="_blank" className="hover:text-[var(--primary)] transition-colors">Willian Gomes</a> &copy; {currentYear}
         </div>
       </div>
     </main>
