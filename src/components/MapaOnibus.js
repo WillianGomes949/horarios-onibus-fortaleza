@@ -1,16 +1,16 @@
 'use client';
 
-import { useMemo, useEffect, useState } from 'react';
+import { useMemo, useEffect, useState, useCallback } from 'react';
 import { MapContainer, TileLayer, GeoJSON, useMap, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { RiUserLocationFill } from '@remixicon/react';
+import { RiUserLocationFill, RiFocus3Line } from '@remixicon/react';
 
 
 // --- Configuração do Ícone "Blue Dot" Estilo Google ---
 const createBlueDotIcon = () => {
   return L.divIcon({
-    className: 'custom-user-marker', // Classe para referência (se precisar)
+    className: 'custom-user-marker',
     html: `
       <div class="relative flex items-center justify-center w-[40px] h-[40px]">
         <div class="absolute w-[16px] h-[16px] bg-[#4285F4] rounded-full border-2 border-white shadow-md z-10"></div>
@@ -18,7 +18,7 @@ const createBlueDotIcon = () => {
       </div>
     `,
     iconSize: [40, 40],
-    iconAnchor: [20, 20], // Metade do tamanho para centralizar
+    iconAnchor: [20, 20],
     popupAnchor: [0, -10]
   });
 };
@@ -33,7 +33,7 @@ function BotaoLocalizacao({ posicaoUsuario }) {
     if (posicaoUsuario) {
       map.flyTo(posicaoUsuario, 16, {
         animate: true,
-        duration: 1.5 // Animação suave
+        duration: 1.5
       });
     } else {
       alert("Localização ainda não detectada ou permissão negada.");
@@ -41,7 +41,7 @@ function BotaoLocalizacao({ posicaoUsuario }) {
   };
 
   return (
-    <div className="leaflet-bottom leaflet-right m-4 z-[1000]">
+    <div className="leaflet-bottom leaflet-right m-4 z-[1000] mb-20">
       <div className="leaflet-control">
         <button
           onClick={handleLocalizar}
@@ -49,7 +49,6 @@ function BotaoLocalizacao({ posicaoUsuario }) {
           title="Onde estou?"
           type="button"
         >
-          {/* Ícone de seta/mira */}
           <RiUserLocationFill className={`${posicaoUsuario ? 'text-blue-600' : 'text-gray-400'}`} size={18} />
         </button>
       </div>
@@ -57,14 +56,44 @@ function BotaoLocalizacao({ posicaoUsuario }) {
   );
 }
 
-// --- Componente de Ajuste de Zoom da Rota ---
-function AjustarZoom({ bounds }) {
+// --- Botão para centralizar a rota (usuário controla) ---
+function BotaoCentralizarRota({ bounds }) {
   const map = useMap();
-  useEffect(() => {
+
+  const handleCentralizar = () => {
     if (bounds && Object.keys(bounds).length > 0) {
       map.fitBounds(bounds, { padding: [50, 50], animate: true, duration: 1.5 });
     }
-  }, [bounds, map]);
+  };
+
+  return (
+    <div className="leaflet-bottom leaflet-right m-4 z-[1000]">
+      <div className="leaflet-control">
+        <button
+          onClick={handleCentralizar}
+          className="bg-white text-gray-700 p-3 rounded-full shadow-lg hover:bg-gray-50 focus:outline-none transition-transform active:scale-95 border border-gray-200 flex items-center justify-center"
+          title="Centralizar rota"
+          type="button"
+        >
+          <RiFocus3Line className="text-orange-500" size={18} />
+        </button>
+      </div>
+    </div>
+  );
+}
+
+// --- Componente de Ajuste de Zoom da Rota (apenas na primeira carga) ---
+function AjustarZoomInicial({ bounds }) {
+  const map = useMap();
+  const [jaAjustou, setJaAjustou] = useState(false);
+
+  useEffect(() => {
+    if (!jaAjustou && bounds && Object.keys(bounds).length > 0) {
+      map.fitBounds(bounds, { padding: [50, 50], animate: true, duration: 1.5 });
+      setJaAjustou(true);
+    }
+  }, [bounds, map, jaAjustou]);
+
   return null;
 }
 
@@ -79,7 +108,7 @@ export default function MapaOnibus({ dadosGeoJSON, numeroLinha, sentido }) {
           setPosicaoUsuario([position.coords.latitude, position.coords.longitude]);
         },
         (error) => console.error("Erro GPS:", error),
-        { enableHighAccuracy: true } // Melhora precisão para "ponto azul"
+        { enableHighAccuracy: true }
       );
       return () => navigator.geolocation.clearWatch(geoId);
     }
@@ -94,6 +123,12 @@ export default function MapaOnibus({ dadosGeoJSON, numeroLinha, sentido }) {
         nome.toLowerCase().includes(sentido.toLowerCase());
     });
   }, [dadosGeoJSON, numeroLinha, sentido]);
+
+  // Memoiza os bounds para não recriar o objeto a cada render
+  const bounds = useMemo(() => {
+    if (!rotaFiltrada) return null;
+    return L.geoJSON(rotaFiltrada).getBounds();
+  }, [rotaFiltrada]);
 
   const corLinha = sentido === 'Ida' ? '#3b82f6' : '#ff6b00';
 
@@ -116,18 +151,19 @@ export default function MapaOnibus({ dadosGeoJSON, numeroLinha, sentido }) {
               data={rotaFiltrada}
               style={{ color: corLinha, weight: 6, opacity: 0.85, lineCap: 'round' }}
             />
-            <AjustarZoom bounds={L.geoJSON(rotaFiltrada).getBounds()} />
+            <AjustarZoomInicial bounds={bounds} />
+            <BotaoCentralizarRota bounds={bounds} />
           </>
         )}
 
         {/* Marcador do Usuário (Blue Dot) */}
         {posicaoUsuario && (
           <Marker position={posicaoUsuario} icon={createBlueDotIcon()}>
-             <Popup>Você está aqui</Popup>
+            <Popup>Você está aqui</Popup>
           </Marker>
         )}
 
-        {/* Botão Flutuante */}
+        {/* Botão Flutuante Localização */}
         <BotaoLocalizacao posicaoUsuario={posicaoUsuario} />
 
       </MapContainer>
